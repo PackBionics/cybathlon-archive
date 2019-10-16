@@ -23,5 +23,5 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //Serial.print("Weight: ");
-  Serial.println(loadcell.read()/10000);
+  SerialUSB.println(loadcell.read()/10000);
 }
