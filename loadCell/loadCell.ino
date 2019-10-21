@@ -1,8 +1,10 @@
 #include "HX711.h"
 HX711 loadcell;
+HX711 loadcell2;
 
 // 1. HX711 circuit wiring
 const int LOADCELL_DOUT_PIN = 2;
+const int LOADCELL_DOUT_PIN2 = 4;
 const int LOADCELL_SCK_PIN = 3;
 
 // 2. Adjustment settings
@@ -16,12 +18,18 @@ void setup() {
   loadcell.set_scale(LOADCELL_DIVIDER);
   loadcell.set_offset(0);
   loadcell.set_gain();
-
-
+  loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN);
+  loadcell2.set_scale(LOADCELL_DIVIDER);
+  loadcell2.set_offset(0);
+  loadcell2.set_gain();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   //Serial.print("Weight: ");
-  SerialUSB.println(loadcell.read()/10000);
+  SerialUSB.print(loadcell.read()/10000);
+  SerialUSB.print(" ");
+  SerialUSB.print(loadcell2.read()/10000);
+  SerialUSB.println();
+
 }

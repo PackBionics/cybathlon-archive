@@ -1,63 +1,6 @@
-/*
- * AMT22_SPI_Sample_Code.ino
- * Company: CUI Inc.
- * Author: Jason Kelly
- * Version: 2.0.1.0
- * Date: August 20, 2019
- * 
- * This sample code can be used with the Arduino Uno to control the AMT22 encoder.
- * It uses SPI to control the encoder and the the Arduino UART to report back to the PC
- * via the Arduino Serial Monitor.
- * For more information or assistance contact CUI Inc for support.
- * 
- * After uploading code to Arduino Uno open the open the Serial Monitor under the Tools 
- * menu and set the baud rate to 115200 to view the serial stream the position from the AMT22.
- * 
- * Arduino Pin Connections
- * SPI Chip Select Enc 0:   Pin  2
- * SPI Chip Select Enc 1:   Pin  3
- * SPI MOSI                 Pin 11
- * SPI MISO                 Pin 12
- * SPI SCLK:                Pin 13
- * 
- * 
- * AMT22 Pin Connections
- * Vdd (5V):                Pin  1
- * SPI SCLK:                Pin  2
- * SPI MOSI:                Pin  3
- * GND:                     Pin  4
- * SPI MISO:                Pin  5
- * SPI Chip Select:         Pin  6
- * 
- * 
- * This is free and unencumbered software released into the public domain.
- * Anyone is free to copy, modify, publish, use, compile, sell, or
- * distribute this software, either in source code form or as a compiled
- * binary, for any purpose, commercial or non-commercial, and by any
- * means.
- * 
- * In jurisdictions that recognize copyright laws, the author or authors
- * of this software dedicate any and all copyright interest in the
- * software to the public domain. We make this dedication for the benefit
- * of the public at large and to the detriment of our heirs and
- * successors. We intend this dedication to be an overt act of
- * relinquishment in perpetuity of all present and future rights to this
- * software under copyright law.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- */
-
-
 /* Include the SPI library for the arduino boards */
 #include <SPI.h>
 
-/* Serial rates for UART */
 #define BAUDRATE        115200
 
 /* SPI commands */
@@ -75,14 +18,29 @@
 
 /* SPI pins */
 #define ENC_0            5
-
 #define ENC_1            3
 #define SPI_MOSI        11
 #define SPI_MISO        12
 #define SPI_SCLK        13
 
-void setup() 
-{
+/////////////////////////////////////////////////////
+/* Stuff for load cells */
+#include "HX711.h"
+HX711 loadcell;
+HX711 loadcell2;
+
+// 1. HX711 circuit wiring
+const int LOADCELL_DOUT_PIN = 2;
+const int LOADCELL_DOUT_PIN2 = 4;
+const int LOADCELL_SCK_PIN = 3;
+
+// 2. Adjustment settings
+const long LOADCELL_OFFSET = 50682624;
+const long LOADCELL_DIVIDER = 5895655;
+
+///////////////////////////////////////////////////////
+
+void setup() {
   //Set the modes for the SPI IO
   pinMode(SPI_SCLK, OUTPUT);
   pinMode(SPI_MOSI, OUTPUT);
@@ -109,10 +67,19 @@ void setup()
   
   //start SPI bus
   SPI.begin();
+
+  /*****************************************************/
+  loadcell.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+  loadcell.set_scale(LOADCELL_DIVIDER);
+  loadcell.set_offset(0);
+  loadcell.set_gain();
+  loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN);
+  loadcell2.set_scale(LOADCELL_DIVIDER);
+  loadcell2.set_offset(0);
+  loadcell2.set_gain();
 }
 
-void loop() 
-{
+void loop() {
   //create a 16 bit variable to hold the encoders position
   uint16_t encoderPosition;
   //let's also create a variable where we can count how many times we've tried to obtain the position in case there are errors
@@ -144,14 +111,14 @@ void loop()
     {
       SerialUSB.print("Encoder 0 error. Attempts: ");
       SerialUSB.print(attempts, DEC); //print out the number in decimal format. attempts - 1 is used since we post incremented the loop
-//      SerialUSB.write(NEWLINE);
+      Serial.write(NEWLINE);
     }
     else //position was good, print to serial stream
     {
       
       SerialUSB.print("Encoder 0: ");
       SerialUSB.print(encoderPosition, DEC); //print the position in decimal format
-//      SerialUSB.write(NEWLINE);
+      Serial.write(NEWLINE);
     }
 
     //////////again for second encoder//////////////////////////////
@@ -188,6 +155,15 @@ void loop()
     //delay() is in milliseconds
     delay(500);
   }
+
+  /****************************************************/
+  // put your main code here, to run repeatedly:
+  //Serial.print("Weight: ");
+  SerialUSB.print(loadcell.read()/10000);
+  SerialUSB.print(" ");
+  SerialUSB.print(loadcell2.read()/10000);
+  SerialUSB.println();
+
 }
 
 /*
