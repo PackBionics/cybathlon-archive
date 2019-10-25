@@ -56,6 +56,9 @@
 
 /* Include the SPI library for the arduino boards */
 #include <SPI.h>
+#include <SERCOM.h>
+#include <variant.h>
+#include <wiring_private.h>
 
 /* Serial rates for UART */
 #define BAUDRATE        115200
@@ -81,8 +84,15 @@
 #define SPI_MISO        12
 #define SPI_SCLK        13
 
+SPIClass SPI2 (&sercom2, 12, 13, 11, SPI_PAD_0_SCK_3, SERCOM_RX_PAD_1);
+
 void setup() 
 {
+  //start SPI bus
+  SPI2.begin();
+  pinPeripheral(12, PIO_SERCOM_ALT);
+  pinPeripheral(11, PIO_SERCOM_ALT);
+  pinPeripheral(13, PIO_SERCOM);
   //Set the modes for the SPI IO
   pinMode(SPI_SCLK, OUTPUT);
   pinMode(SPI_MOSI, OUTPUT);
@@ -103,12 +113,11 @@ void setup()
   //SPI.setClockDivider(SPI_CLOCK_DIV4);   // 4 MHz
   //SPI.setClockDivider(SPI_CLOCK_DIV8);   // 2 MHz
   //SPI.setClockDivider(SPI_CLOCK_DIV16);  // 1 MHz
-  SPI.setClockDivider(SPI_CLOCK_DIV32);    // 500 kHz
+  SPI2.setClockDivider(SPI_CLOCK_DIV32);    // 500 kHz
   //SPI.setClockDivider(SPI_CLOCK_DIV64);  // 250 kHz
   //SPI.setClockDivider(SPI_CLOCK_DIV128); // 125 kHz
   
-  //start SPI bus
-  SPI.begin();
+
 }
 
 void loop() 
@@ -140,19 +149,30 @@ void loop()
       encoderPosition = getPositionSPI(ENC_0, RES14); //try again
     }
 
-    if (encoderPosition == 0xFFFF) //position is bad, let the user know how many times we tried
-    {
-      SerialUSB.print("Encoder 0 error. Attempts: ");
-      SerialUSB.print(attempts, DEC); //print out the number in decimal format. attempts - 1 is used since we post incremented the loop
+//    if (encoderPosition == 0xFFFF) //position is bad, let the user know how many times we tried
+//    {
+//      pinPeripheral(12, PIO_SERCOM);
+//      pinPeripheral(11, PIO_SERCOM);
+//      pinPeripheral(13, PIO_SERCOM);
+//      SerialUSB.print("Encoder 0 error. Attempts: ");
+//      SerialUSB.print(attempts, DEC); //print out the number in decimal format. attempts - 1 is used since we post incremented the loop
 //      SerialUSB.write(NEWLINE);
-    }
-    else //position was good, print to serial stream
-    {
-      
-      SerialUSB.print("Encoder 0: ");
-      SerialUSB.print(encoderPosition, DEC); //print the position in decimal format
+//      pinPeripheral(12, PIO_SERCOM_ALT);
+//      pinPeripheral(11, PIO_SERCOM_ALT);
+//      pinPeripheral(13, PIO_SERCOM);
+//    }
+//    else //position was good, print to serial stream
+//    {
+//      pinPeripheral(12, PIO_SERCOM);
+//      pinPeripheral(11, PIO_SERCOM);
+//      pinPeripheral(13, PIO_SERCOM);
+//      SerialUSB.print("Encoder 0: ");
+//      SerialUSB.print(encoderPosition, DEC); //print the position in decimal format
 //      SerialUSB.write(NEWLINE);
-    }
+//      pinPeripheral(12, PIO_SERCOM_ALT);
+//      pinPeripheral(11, PIO_SERCOM_ALT);
+//      pinPeripheral(13, PIO_SERCOM);
+//    }
 
     //////////again for second encoder//////////////////////////////
     
@@ -214,10 +234,13 @@ uint16_t getPositionSPI(uint8_t encoder, uint8_t resolution)
 
   //OR the low byte with the currentPosition variable. release line after second byte
   currentPosition |= spiWriteRead(AMT22_NOP, encoder, true);        
-
+  SerialUSB.println("Current Position: " + currentPosition);
+  
   //run through the 16 bits of position and put each bit into a slot in the array so we can do the checksum calculation
   for(int i = 0; i < 16; i++) binaryArray[i] = (0x01) & (currentPosition >> (i));
-
+  SerialUSB.print("Binary Array: ");
+  for(int i = 0; i < 16; i++) SerialUSB.print(binaryArray[i]);
+  SerialUSB.println();
   //using the equation on the datasheet we can calculate the checksums and then make sure they match what the encoder sent
   if ((binaryArray[15] == !(binaryArray[13] ^ binaryArray[11] ^ binaryArray[9] ^ binaryArray[7] ^ binaryArray[5] ^ binaryArray[3] ^ binaryArray[1]))
           && (binaryArray[14] == !(binaryArray[12] ^ binaryArray[10] ^ binaryArray[8] ^ binaryArray[6] ^ binaryArray[4] ^ binaryArray[2] ^ binaryArray[0])))
@@ -257,7 +280,7 @@ uint8_t spiWriteRead(uint8_t sendByte, uint8_t encoder, uint8_t releaseLine)
   delayMicroseconds(3);
 
   //send the command  
-  data = SPI.transfer(sendByte);
+  data = SPI2.transfer(sendByte);
   delayMicroseconds(3); //There is also a minimum time after clocking that CS should remain asserted before we release it
   setCSLine(encoder, releaseLine); //if releaseLine is high set it high else it stays low
   
