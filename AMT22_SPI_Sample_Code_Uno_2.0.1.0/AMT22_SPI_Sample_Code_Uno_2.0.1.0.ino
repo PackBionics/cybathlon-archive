@@ -77,26 +77,26 @@
 #define RES14           14
 
 /* SPI pins */
-#define ENC_0            5
+#define ENC_0           9
 
 #define ENC_1            3
-#define SPI_MOSI        11
-#define SPI_MISO        12
-#define SPI_SCLK        13
+#define SPI_MOSI        4
+#define SPI_MISO        3
+#define SPI_SCLK        5
 
-SPIClass SPI2 (&sercom2, 12, 13, 11, SPI_PAD_0_SCK_3, SERCOM_RX_PAD_1);
+SPIClass SPI2 (&sercom4, SPI_MISO, SPI_SCLK, SPI_MOSI, SPI_PAD_2_SCK_3, SERCOM_RX_PAD_0);
 
 void setup() 
 {
   //start SPI bus
   SPI2.begin();
-  pinPeripheral(12, PIO_SERCOM_ALT);
-  pinPeripheral(11, PIO_SERCOM_ALT);
-  pinPeripheral(13, PIO_SERCOM);
+  pinPeripheral(SPI_MISO, PIO_SERCOM_ALT);
+  pinPeripheral(SPI_MOSI, PIO_SERCOM_ALT);
+  pinPeripheral(SPI_SCLK, PIO_SERCOM);
   //Set the modes for the SPI IO
-  pinMode(SPI_SCLK, OUTPUT);
-  pinMode(SPI_MOSI, OUTPUT);
-  pinMode(SPI_MISO, INPUT);
+//  pinMode(SPI_SCLK, OUTPUT);
+//  pinMode(SPI_MOSI, OUTPUT);
+//  pinMode(SPI_MISO, INPUT);
   pinMode(ENC_0, OUTPUT);
   //pinMode(ENC_1, OUTPUT);
   
@@ -149,30 +149,18 @@ void loop()
       encoderPosition = getPositionSPI(ENC_0, RES14); //try again
     }
 
-//    if (encoderPosition == 0xFFFF) //position is bad, let the user know how many times we tried
-//    {
-//      pinPeripheral(12, PIO_SERCOM);
-//      pinPeripheral(11, PIO_SERCOM);
-//      pinPeripheral(13, PIO_SERCOM);
-//      SerialUSB.print("Encoder 0 error. Attempts: ");
-//      SerialUSB.print(attempts, DEC); //print out the number in decimal format. attempts - 1 is used since we post incremented the loop
-//      SerialUSB.write(NEWLINE);
-//      pinPeripheral(12, PIO_SERCOM_ALT);
-//      pinPeripheral(11, PIO_SERCOM_ALT);
-//      pinPeripheral(13, PIO_SERCOM);
-//    }
-//    else //position was good, print to serial stream
-//    {
-//      pinPeripheral(12, PIO_SERCOM);
-//      pinPeripheral(11, PIO_SERCOM);
-//      pinPeripheral(13, PIO_SERCOM);
-//      SerialUSB.print("Encoder 0: ");
-//      SerialUSB.print(encoderPosition, DEC); //print the position in decimal format
-//      SerialUSB.write(NEWLINE);
-//      pinPeripheral(12, PIO_SERCOM_ALT);
-//      pinPeripheral(11, PIO_SERCOM_ALT);
-//      pinPeripheral(13, PIO_SERCOM);
-//    }
+    if (encoderPosition == 0xFFFF) //position is bad, let the user know how many times we tried
+    {
+      SerialUSB.print("Encoder 0 error. Attempts: ");
+      SerialUSB.print(attempts, DEC); //print out the number in decimal format. attempts - 1 is used since we post incremented the loop
+      SerialUSB.write(NEWLINE);
+    }
+    else //position was good, print to serial stream
+    {
+      SerialUSB.print("Encoder 0: ");
+      SerialUSB.print(encoderPosition, DEC); //print the position in decimal format
+      SerialUSB.write(NEWLINE);
+    }
 
     //////////again for second encoder//////////////////////////////
     
