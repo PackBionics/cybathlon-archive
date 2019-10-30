@@ -80,18 +80,18 @@
 #define ENC_0           9
 
 #define ENC_1            3
-#define SPI_MOSI        4
-#define SPI_MISO        3
-#define SPI_SCLK        5
+#define SPI_MOSI        11
+#define SPI_MISO        12
+#define SPI_SCLK        13
 
-SPIClass SPI2 (&sercom4, SPI_MISO, SPI_SCLK, SPI_MOSI, SPI_PAD_2_SCK_3, SERCOM_RX_PAD_0);
+SPIClass SPI2 (&sercom1, SPI_MISO, SPI_SCLK, SPI_MOSI, SPI_PAD_0_SCK_1, SERCOM_RX_PAD_3);
 
 void setup() 
 {
   //start SPI bus
   SPI2.begin();
-  pinPeripheral(SPI_MISO, PIO_SERCOM_ALT);
-  pinPeripheral(SPI_MOSI, PIO_SERCOM_ALT);
+  pinPeripheral(SPI_MISO, PIO_SERCOM);
+  pinPeripheral(SPI_MOSI, PIO_SERCOM);
   pinPeripheral(SPI_SCLK, PIO_SERCOM);
   //Set the modes for the SPI IO
 //  pinMode(SPI_SCLK, OUTPUT);
@@ -113,9 +113,9 @@ void setup()
   //SPI.setClockDivider(SPI_CLOCK_DIV4);   // 4 MHz
   //SPI.setClockDivider(SPI_CLOCK_DIV8);   // 2 MHz
   //SPI.setClockDivider(SPI_CLOCK_DIV16);  // 1 MHz
-  SPI2.setClockDivider(SPI_CLOCK_DIV32);    // 500 kHz
+  //SPI2.setClockDivider(SPI_CLOCK_DIV32);    // 500 kHz
   //SPI.setClockDivider(SPI_CLOCK_DIV64);  // 250 kHz
-  //SPI.setClockDivider(SPI_CLOCK_DIV128); // 125 kHz
+  SPI.setClockDivider(SPI_CLOCK_DIV128); // 125 kHz
   
 
 }
