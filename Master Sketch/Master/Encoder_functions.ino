@@ -1,29 +1,3 @@
-/* Include the SPI library for the arduino boards */
-#include <SPI.h>
-
-/* Serial rates for UART */
-#define BAUDRATE        115200
-
-/* SPI commands */
-#define AMT22_NOP       0x00
-#define AMT22_RESET     0x60
-#define AMT22_ZERO      0x70
-
-/* Define special ascii characters */
-#define NEWLINE         0x0A
-#define TAB             0x09
-
-/* We will use these define macros so we can write code once compatible with 12 or 14 bit encoders */
-#define RES12           12
-#define RES14           14
-
-/* SPI pins */
-#define ENC_0            2
-#define ENC_1            3
-#define SPI_MOSI        10
-#define SPI_MISO        11
-#define SPI_SCLK        9
-
 
 /*
    This function gets the absolute position from the AMT22 encoder using the SPI bus. The AMT22 position includes 2 checkbits to use
