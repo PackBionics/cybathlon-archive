@@ -2,7 +2,7 @@
 #include <SPI.h>
 
 /* Serial rates for UART */
-#define BAUDRATE        115200
+#define BAUDRATE_ENCODER        115200
 
 /* SPI commands */
 #define AMT22_NOP       0x00

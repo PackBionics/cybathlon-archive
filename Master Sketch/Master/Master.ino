@@ -10,7 +10,7 @@ void setup() {
   pinMode(ENC_1, OUTPUT);
 
   //Initialize the UART serial connection for debugging
-  Serial.begin(BAUDRATE);
+  Serial.begin(BAUDRATE_ENCODER);
 
   //Get the CS line high which is the default inactive state
   digitalWrite(ENC_0, HIGH);
@@ -18,8 +18,7 @@ void setup() {
   SPI.setClockDivider(SPI_CLOCK_DIV32);    // 500 kHz
   SPI.begin();
 
-
-  Serial.begin(9600);
+//  Serial.begin(BAUDRATE_LC);
   loadcell1.begin(LOADCELL_DOUT_PIN1, LOADCELL_SCK_PIN);
   loadcell1.set_scale(LOADCELL_DIVIDER);
   loadcell1.set_offset(0);
@@ -36,9 +35,18 @@ void setup() {
   loadcell4.set_scale(LOADCELL_DIVIDER);
   loadcell4.set_offset(0);
   loadcell4.set_gain();
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  Serial.print("LC: ");
+  Serial.print(loadcell1.read()/1000);
+  Serial.println();
+  Serial.print("Encoder 0: ");
+  Serial.print(getPositionSPI(ENC_0, RES14), DEC);
+  Serial.println();
+  Serial.print("Encoder 1: ");
+  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
+  Serial.println();
 }

@@ -6,12 +6,14 @@ HX711 loadcell2;
 HX711 loadcell3;
 HX711 loadcell4;
 
+#define     BAUDRATE_LC         9600
+
 // 1. HX711 circuit wiring
-#define     LOADCELL_DOUT_PIN1  2
-#define     LOADCELL_DOUT_PIN2  4
-#define     LOADCELL_DOUT_PIN3  2
-#define     LOADCELL_DOUT_PIN4  4
-#define     LOADCELL_SCK_PIN    3
+#define     LOADCELL_DOUT_PIN1  4
+#define     LOADCELL_DOUT_PIN2  6
+#define     LOADCELL_DOUT_PIN3  7
+#define     LOADCELL_DOUT_PIN4  8
+#define     LOADCELL_SCK_PIN    9
 
 
 // 2. Adjustment settings
