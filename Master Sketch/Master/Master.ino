@@ -1,5 +1,6 @@
 #include "LoadCell.h"
 #include "Encoder.h"
+#include "Motor.h"
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
@@ -10,7 +11,7 @@
 void setup() {
   Init_Encoders();
   Init_LC();
-
+  Init_Motors();
   
   #ifdef DEBUG_CONFIG
 
