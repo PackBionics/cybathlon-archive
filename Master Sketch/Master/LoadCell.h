@@ -10,15 +10,15 @@ HX711 loadcell4;
 
 // 1. HX711 circuit wiring
 #define     LOADCELL_DOUT_PIN1  4
-#define     LOADCELL_DOUT_PIN2  6
-#define     LOADCELL_DOUT_PIN3  7
-#define     LOADCELL_DOUT_PIN4  8
+#define     LOADCELL_DOUT_PIN2  5
+#define     LOADCELL_DOUT_PIN3  6
+#define     LOADCELL_DOUT_PIN4  7
 #define     LOADCELL_SCK_PIN    9
 
 
 // 2. Adjustment settings
-#define     LOADCELL_OFFSET     50682624
-#define     LOADCELL_DIVIDER    5895655
+#define     LOADCELL_OFFSET     0
+#define     LOADCELL_DIVIDER    5895655000
 
 void Init_LC(void);
-void Calibrate_LC(uint8_t loadcell);
+void Calibrate_LC(HX711 loadcell);

@@ -1,3 +1,24 @@
+/*
+ * Code to initialize SPI for the encoders
+ */
+void Init_Encoders()
+{
+  //Set the modes for the SPI IO
+  pinMode(SPI_SCLK, OUTPUT);
+  pinMode(SPI_MOSI, OUTPUT);
+  pinMode(SPI_MISO, INPUT);
+  pinMode(ENC_0, OUTPUT);
+  pinMode(ENC_1, OUTPUT);
+
+  //Initialize the UART serial connection for debugging
+  Serial.begin(BAUDRATE_ENCODER);
+
+  //Get the CS line high which is the default inactive state
+  digitalWrite(ENC_0, HIGH);
+  digitalWrite(ENC_1, HIGH);
+  SPI.setClockDivider(SPI_CLOCK_DIV32);    // 500 kHz
+  SPI.begin();
+}
 
 /*
    This function gets the absolute position from the AMT22 encoder using the SPI bus. The AMT22 position includes 2 checkbits to use
