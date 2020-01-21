@@ -2,6 +2,7 @@
 #include "Encoder.h"
 #include "Motor.h"
 #include "FSM_States.h"
+#include "Button.h"
 
 
 //#define DEBUG_CONFIG // comment this line out to run full system

@@ -24,6 +24,9 @@
 #define SPI_MISO        11
 #define SPI_SCLK        9
 
+int encKnee;
+int encCAM;
+
 /* Function declarations */
 void Init_Encoders(void);
 uint16_t getPositionSPI(uint8_t encoder, uint8_t resolution);

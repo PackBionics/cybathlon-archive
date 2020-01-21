@@ -5,11 +5,13 @@ boolean retracted = false;
  * FSM contains the entire FSM of the 
  */
 int FSM(FSMState init_state) {
-  FSMState state = init_state;
+  FSMState current_state = init_state;
   while(1) {
-    switch(state) {
+    switch(current_state) {
       case LOCKED:
-
+        if (button_state == 0) {
+          
+        }
         break;
       case MIDSTANCE:
 
