@@ -10,11 +10,19 @@ int FSM(FSMState init_state) {
     switch(current_state) {
       case LOCKED:
         if (button_state == 0) {
-          
+          current_state = MIDSTANCE;
         }
         break;
       case MIDSTANCE:
-
+        if (button_state == 1) {
+          current_state = LOCKED;
+        } else if (lcBack > MIDSTANCE_SIT_TH) {
+          current_state = SIT;
+        } else if (lcFront > MIDSTANCE_GAIT_TH) {
+          current_state = GAIT;
+        } else if (lcFront < ZERO_ERROR && lcBack < ZERO_ERROR && lcRight < ZERO_ERROR && lcLeft < ZERO_ERROR) {
+          current_state = RETRACTION;
+        }
         break;
       case SIT:
 
