@@ -1,10 +1,10 @@
 #include "HX711.h"
 
 // Declarations for loadcells
-HX711 loadcell1;
-HX711 loadcell2;
-HX711 loadcell3;
-HX711 loadcell4;
+HX711 loadcell1; // front
+HX711 loadcell2; // back
+HX711 loadcell3; // left
+HX711 loadcell4; // right
 
 #define     BAUDRATE_LC         9600  // May not be needed if BAUDRATE used for SPI
                                       // is good enough for universal use
@@ -20,6 +20,11 @@ HX711 loadcell4;
 // 2. Adjustment settings
 #define     LOADCELL_OFFSET     0
 #define     LOADCELL_DIVIDER    5895655000
+
+int lcFront;
+int lcBack;
+int lcLeft;
+int lcRight;
 
 // Functions
 void Init_LC(void);

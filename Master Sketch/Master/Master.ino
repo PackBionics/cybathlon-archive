@@ -1,6 +1,8 @@
 #include "LoadCell.h"
 #include "Encoder.h"
 #include "Motor.h"
+#include "FSM_States.h"
+
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
@@ -12,6 +14,7 @@ void setup() {
   Init_Encoders();
   Init_LC();
   Init_Motors();
+  Init_Button();
   
   #ifdef DEBUG_CONFIG
 
@@ -40,13 +43,15 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.print("LC: ");
-  Serial.print(loadcell1.read()/1000);
-  Serial.println();
-  Serial.print("Encoder 0: ");
-  Serial.print(getPositionSPI(ENC_0, RES14), DEC);
-  Serial.println();
-  Serial.print("Encoder 1: ");
-  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
-  Serial.println();
+    //  Serial.print("LC: ");
+    //  Serial.print(loadcell1.read()/1000);
+    //  Serial.println();
+    //  Serial.print("Encoder 0: ");
+    //  Serial.print(getPositionSPI(ENC_0, RES14), DEC);
+    //  Serial.println();
+    //  Serial.print("Encoder 1: ");
+    //  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
+    //  Serial.println();
+
+  
 }
