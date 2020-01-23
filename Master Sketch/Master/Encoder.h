@@ -24,6 +24,9 @@
 #define SPI_MISO        11
 #define SPI_SCLK        9
 
+/* Encoder Value Maximum */
+#define ENC_MAX         16384
+
 int encKnee;
 int encCAM;
 
