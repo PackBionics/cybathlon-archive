@@ -35,7 +35,7 @@ int FSM(FSMState init_state) {
         }
         break;
       case STAND:
-        if (encKnee % ENC_MAX < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
+        if ((encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
           current_state = MIDSTANCE;
         } else {
           // Stand();
@@ -49,14 +49,14 @@ int FSM(FSMState init_state) {
         }
         break;
       case H_STRIKE:
-        if (encKnee % ENC_MAX < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
+        if ((encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
           current_state = MIDSTANCE;
         } else {
           // Straighten_Leg();
         }
         break;
       case FULL_EXT:
-        if (encKnee % ENC_MAX < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
+        if ((encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
           current_state = MIDSTANCE;
         }
         break;
@@ -70,7 +70,7 @@ int FSM(FSMState init_state) {
           current_state = FULL_EXT;
           retracted = false;
         } else if (lcBack > RETRACTION_H_STRIKE_LCBACK_TH && lcBack - lcFront > RETRACTION_H_STRIKE_LCBACKFRONT_TH
-              && encKnee % ENC_MAX < ZERO_ERROR_ENC) {
+              && (encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC) {
           current_state = H_STRIKE;
           retracted = false;
         }

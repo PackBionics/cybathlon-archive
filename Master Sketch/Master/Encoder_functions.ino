@@ -139,3 +139,8 @@ void resetAMT22(uint8_t encoder)
 
   delay(250); //250 second delay to allow the encoder to start back up
 }
+
+int bitToDegrees(int bitCount) {
+  int deg = bitCount / ENC_MAX * 360;
+  return deg;
+}
