@@ -9,7 +9,7 @@ boolean retracted = false;
  */
 int FSM(FSMState init_state) {
   FSMState current_state = init_state;
-  while(1) {
+  while(1) { // consider moving while to master sketch (need to make global state variable and return value as FSMState)
     switch(current_state) {
       case LOCKED:
         if (button_state == 0) {
