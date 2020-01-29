@@ -73,3 +73,19 @@ void Calibrate_LC(HX711 loadcell)
   }
   
 }
+
+int Read_LC1() {
+  return loadcell1.read();
+}
+
+int Read_LC2() {
+  return loadcell1.read();
+}
+
+int Read_LC3() {
+  return loadcell1.read();
+}
+
+int Read_LC4() {
+  return loadcell1.read();
+}

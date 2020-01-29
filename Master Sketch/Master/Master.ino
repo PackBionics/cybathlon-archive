@@ -4,6 +4,7 @@
 #include "FSM_States.h"
 #include "Button.h"
 #include "Thresholds.h"
+#include "Sensor_Interrupt.h"
 
 
 //#define DEBUG_CONFIG // comment this line out to run full system
@@ -17,6 +18,7 @@ void setup() {
   Init_LC();
   Init_Motors();
   Init_Button();
+  Init_Interrupt();
   
   #ifdef DEBUG_CONFIG
 

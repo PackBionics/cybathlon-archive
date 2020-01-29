@@ -29,3 +29,7 @@ int lcRight;
 // Functions
 void Init_LC(void);
 void Calibrate_LC(HX711 loadcell);
+int Read_LC1(void);
+int Read_LC2(void);
+int Read_LC3(void);
+int Read_LC4(void);
