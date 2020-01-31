@@ -27,6 +27,7 @@
 /* Encoder Value Maximum */
 #define ENC_MAX         16384
 
+// global variables
 int encKnee;
 int encCAM;
 

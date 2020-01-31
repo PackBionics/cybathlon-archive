@@ -1,14 +1,7 @@
 #include "HX711.h"
 
-// Declarations for loadcells
-HX711 loadcell1; // front
-HX711 loadcell2; // back
-HX711 loadcell3; // left
-HX711 loadcell4; // right
-
 #define     BAUDRATE_LC         9600  // May not be needed if BAUDRATE used for SPI
                                       // is good enough for universal use
-
 // 1. HX711 circuit wiring
 #define     LOADCELL_DOUT_PIN1  4
 #define     LOADCELL_DOUT_PIN2  5
@@ -21,6 +14,11 @@ HX711 loadcell4; // right
 #define     LOADCELL_OFFSET     0
 #define     LOADCELL_DIVIDER    5895655000
 
+// Declarations for loadcells
+HX711 loadcell1; // front
+HX711 loadcell2; // back
+HX711 loadcell3; // left
+HX711 loadcell4; // right
 int lcFront;
 int lcBack;
 int lcLeft;

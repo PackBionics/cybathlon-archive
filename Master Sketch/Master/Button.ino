@@ -1,4 +1,6 @@
-// Initializes button for Locked state
+/**
+ * Initializes button for Locked state
+ */
 void Init_Button() {
   pinMode(LOCKED_BUTTON, INPUT);
 }

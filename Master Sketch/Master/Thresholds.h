@@ -11,4 +11,4 @@
 
 
 #define ZERO_ERROR_LC 50 // error for how close to 0 LCs are to be deemed "0" force
-#define ZERO_ERROR_ENC 200 // error for how close to 0 encoders are to be deemed "0"
+#define ZERO_ERROR_ENC 1 // error for how close to 0 encoders are to be deemed "0"

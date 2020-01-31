@@ -14,6 +14,7 @@
 
 
 void setup() {
+  // Initialize
   Init_Encoders();
   Init_LC();
   Init_Motors();

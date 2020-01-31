@@ -1,3 +1,6 @@
+/**
+ * Initializes motor
+ */
 void Init_Motors()
 {
   pinMode(PWM, OUTPUT);

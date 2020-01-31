@@ -1,3 +1,6 @@
+/**
+ * Initializes Interrupt
+ */
 void Init_Interrupt() {
   //set timer1 interrupt at 20Hz
   TCCR1A = 0;// set entire TCCR0A register to 0
@@ -9,6 +12,9 @@ void Init_Interrupt() {
   TIMSK1 |= (1 << OCIE1A);
 }
 
+/**
+ * Function to update sensor global variables
+ */
 void Read_Sensors() {
   encKnee = bitToDegrees(getPositionSPI(ENC_0, RES14));
   encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
@@ -18,6 +24,9 @@ void Read_Sensors() {
   lcRight = Read_LC4();
 }
 
+/**
+ * Interrupt function
+ */
 ISR(TIMER_COMPA_vect) {
     Read_Sensors();
 }
