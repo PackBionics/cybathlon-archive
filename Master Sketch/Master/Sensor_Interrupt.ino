@@ -10,8 +10,8 @@ void Init_Interrupt() {
 }
 
 void Read_Sensors() {
-  encKnee = getPositionSPI(ENC_0, RES14);
-  encCAM = getPositionSPI(ENC_1, RES14);
+  encKnee = bitToDegrees(getPositionSPI(ENC_0, RES14));
+  encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
   lcFront = Read_LC1();
   lcBack = Read_LC2();
   lcLeft = Read_LC3();

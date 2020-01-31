@@ -2,4 +2,6 @@
 enum FSMState {LOCKED, MIDSTANCE, SIT, STAND, GAIT, H_STRIKE, FULL_EXT, RETRACTION};
 
 // FSM Function
-int FSM(FSMState init_state);
+void FSM(FSMState init_state);
+
+FSMState curr_state = LOCKED;
