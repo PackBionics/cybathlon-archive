@@ -25,7 +25,8 @@ int rotate(int dir, int angle) {
     curr_speed--;
   }
   if (curr_ang < angle + RANGE_STOP && curr_ang > angle - RANGE_STOP) { // range of error allowed
-    analogWrite(PWM, 0);
+    curr_speed = 0;
+    analogWrite(PWM, curr_speed);
   } else {
     analogWrite(PWM, curr_speed);
   }
