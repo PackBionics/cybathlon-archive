@@ -57,6 +57,5 @@ void loop() {
     //  Serial.print("Encoder 1: ");
     //  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
     //  Serial.println();
-
-  
+    FSM(curr_state);
 }
