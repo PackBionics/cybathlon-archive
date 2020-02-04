@@ -141,6 +141,6 @@ void resetAMT22(uint8_t encoder)
 }
 
 int bitToDegrees(int bitCount) {
-  int deg = bitCount / ENC_MAX * 360;
+  int deg = map(bitCount, 0, ENC_MAX, 0, 359);
   return deg;
 }
