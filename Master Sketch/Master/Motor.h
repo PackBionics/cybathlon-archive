@@ -7,6 +7,8 @@
 #define MIN_MPWR    0                   // initial minimum motor power
 #define RANGE_STOP  3                   // error for stopping
 #define RANGE_SLOW  5                  // error for slowing down
+#define RET_ANG     120               // angle of fully retracted leg
+#define EXT_ANG     0                 // angle of fully extended leg
 
 int curr_ang = 0;                       // global variable for the current angle of the knee
 int curr_speed = MIN_MPWR;              // global variable for the current speed of the motor (pwm)

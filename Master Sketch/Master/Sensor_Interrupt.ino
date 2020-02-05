@@ -22,6 +22,17 @@ void Read_Sensors() {
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();
+  if (encKnee == RET_ANG) {
+    fully_retracted = true;
+    fully_extended = false;
+    retracted = true;
+  } else if (encKnee == EXT_ANG) {
+    fully_extended = true;
+    fully_retracted = false;
+  } else {
+    fully_extended = false;
+    fully_retracted = false;
+  }
 }
 
 /**

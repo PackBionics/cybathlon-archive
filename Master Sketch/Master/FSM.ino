@@ -1,5 +1,5 @@
 // boolean for whether the leg has fully retracted for RETRACTION State
-boolean retracted = false;
+//boolean retracted = false;
 
 /**
  * v1.0 of FSM Created on 01/21/20
@@ -62,7 +62,8 @@ void FSM(FSMState init_state) {
     case RETRACTION:
       if (!retracted) {
         // Retract();
-        retracted = true;
+      } else {
+        // Free_Swing();
       }
       if (lcFront > RETRACTION_FULL_EXT_LCFRONT_TH && lcBack > RETRACTION_FULL_EXT_LCBACK_TH
             && lcLeft > RETRACTION_FULL_EXT_LCLEFT_TH && lcRight > RETRACTION_FULL_EXT_LCRIGHT_TH) {
@@ -73,7 +74,7 @@ void FSM(FSMState init_state) {
         current_state = H_STRIKE;
         retracted = false;
       }
-      // Free_Swing();
+      
       break;
     default:
       // Do Nothing here
