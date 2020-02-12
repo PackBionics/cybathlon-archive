@@ -5,6 +5,8 @@
 #include "Button.h"
 #include "Thresholds.h"
 #include "Sensor_Interrupt.h"
+#include "Inner_FSMs.h"
+#include "Accelerometer.h"
 
 
 //#define DEBUG_CONFIG // comment this line out to run full system
