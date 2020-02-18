@@ -11,3 +11,4 @@ void Init_Accelerometer(void);
 int getX(void);
 int getY(void);
 int getZ(void);
+int acc_to_ang(int);

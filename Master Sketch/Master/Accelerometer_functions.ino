@@ -22,3 +22,11 @@ int getZ() {
   mma.getEvent(&event);
   return event.acceleration.z;
 }
+
+/**
+ * converts given acceleration to an angle that can be
+ * used for calculating angle direction for gravity
+ */
+acc_to_ang(int acc) {
+  
+}
