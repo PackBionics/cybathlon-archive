@@ -28,7 +28,7 @@ void Stand() {
 void Free_Swing() {
   // Need to figure out how to get g_ang instead of using EXT_ANG and RET_ANG to be able to better control speed through rotate function
   // either use getX and getY or somehow figure out how to use transient rotation from accelerometer
-  int g_ang = enc_knee + acc_to_ang(getX());
+  int g_ang = encKnee + acc_to_ang(getX());
   if (abs(getX() + getY()) > G_TH) {
     if (getY() > G_TH_MAX || getY() < G_TH_MIN) {
       if (getX() < FS_X_TH_NEG) {

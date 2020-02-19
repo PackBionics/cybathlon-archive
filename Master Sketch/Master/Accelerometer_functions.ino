@@ -27,6 +27,6 @@ int getZ() {
  * converts given acceleration to an angle that can be
  * used for calculating angle direction for gravity
  */
-acc_to_ang(int acc) {
-  
+int acc_to_ang(int acc) {
+  return 0;
 }

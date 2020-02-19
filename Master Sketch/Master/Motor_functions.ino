@@ -18,7 +18,7 @@ void Init_Motors()
 int rotate(int dir, int angle) {
   digitalWrite(DIR, dir);
   curr_ang = encKnee;
-  int threshold_range = dir == 1 ? angle + RANGE_SLOW : angle - RANGE_SLOW; // This may change depending on direction of spinning
+  int threshold_range = dir == MTR_FORWARD ? angle + RANGE_SLOW : angle - RANGE_SLOW; // This may change depending on direction of spinning
   if (curr_speed < MAX_MPWR && curr_ang > threshold_range) {
     curr_speed++;
   } else if (curr_ang < threshold_range && curr_speed != 0) {

@@ -9,8 +9,8 @@
 #define RANGE_SLOW    5                  // error for slowing down
 #define RET_ANG       120               // angle of fully retracted leg
 #define EXT_ANG       0                 // angle of fully extended leg
-#define MTR_FORWARD   HIGH              // motor direction for forwards
-#define MTR_BACKWARD  LOW               // motor direction for backwards
+#define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
+#define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
 
 int curr_ang = 0;                       // global variable for the current angle of the knee
 int curr_speed = MIN_MPWR;              // global variable for the current speed of the motor (pwm)

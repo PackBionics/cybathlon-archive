@@ -13,8 +13,14 @@
 #define ZERO_ERROR_LC 50 // error for how close to 0 LCs are to be deemed "0" force
 #define ZERO_ERROR_ENC 1 // error for how close to 0 encoders are to be deemed "0"
 
-// Thresholds for Sit function
-#define SIT_X_TH_POS  400
-#define SIT_X_TH_NEG  400
-#define STAND_X_TH_POS  400
-#define STAND_X_TH_NEG  400
+// Thresholds for Sit and Stand function
+#define SIT_X_TH_POS  400 // threshold for x accelerometer to determine if the pilot's leg is pointing upwards (shin pointing upwards) for sitting
+#define SIT_X_TH_NEG  400 // threshold for x accelerameter to determine if the pilot's leg is pointing downwards (shin pointing downwards) for sitting
+#define STAND_X_TH_POS  400 // threshold for x accelerometer to determine if the pilot's leg is pointing upwards (shin pointing upwards) for standing
+#define STAND_X_TH_NEG  400 // threshold for x accelerameter to determine if the pilot's leg is pointing downwards (shin pointing downwards) for standing
+
+// Thresholds for freeswing gravity
+#define G_TH  400 // threshold for reasonable range of gravity (magnitude of x and y direction [perpendicular to shank and down the leg])
+#define G_TH_MIN  400 // minimum threshold for gravity in the y direction (should be relatively close to 9.81)
+#define G_TH_MAX  400 // maximum threshold for gravity in the y direction (should be relatively close to 9.81)
+#define FS_X_TH_NEG  400 // x threshold hold for determining whether the shin is pointing forward (and therefore should swing forward)
