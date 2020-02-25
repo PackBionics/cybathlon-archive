@@ -1,12 +1,12 @@
-#include "LoadCell.h"
-#include "Encoder.h"
-#include "Motor.h"
-#include "FSM_States.h"
+#include "LoadCell_functions.h"
+#include "Encoder_functions.h"
+#include "Motor_functions.h"
+#include "FSM.h"
 #include "Button.h"
 #include "Thresholds.h"
 #include "Sensor_Interrupt.h"
 #include "Inner_FSMs.h"
-#include "Accelerometer.h"
+#include "Accelerometer_functions.h"
 
 
 //#define DEBUG_CONFIG // comment this line out to run full system

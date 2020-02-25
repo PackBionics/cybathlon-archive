@@ -1,4 +1,4 @@
-// Thresholds for FSM
+// Thresholds for main FSM
 #define MIDSTANCE_SIT_TH 400 // threshold for determining to go from MIDSTANCE to SIT State (uses heel loading)
 #define MIDSTANCE_GAIT_TH 400 // threshold for determining MIDSTANCE to GAIT State (uses toe loading)
 #define SIT_STAND_TH 400 // threshold for determining SIT to STAND State (uses heel loading)
