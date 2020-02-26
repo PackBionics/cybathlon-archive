@@ -7,8 +7,8 @@
  * @param init_state - the initial state that the FSM starts in; should be LOCKED
  * @return exit code - should only happen if fails (returns a 0 in this case)
  */
-void FSM(FSMState init_state) {
-  FSMState current_state = init_state;
+void MasterFSM(MasterFSMState init_state) {
+  MasterFSMState current_state = init_state;
   switch(current_state) {
     case LOCKED:
       if (button_state == 0) {

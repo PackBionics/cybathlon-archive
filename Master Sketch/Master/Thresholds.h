@@ -24,3 +24,7 @@
 #define G_TH_MIN  400 // minimum threshold for gravity in the y direction (should be relatively close to 9.81)
 #define G_TH_MAX  400 // maximum threshold for gravity in the y direction (should be relatively close to 9.81)
 #define FS_X_TH_NEG  400 // x threshold hold for determining whether the shin is pointing forward (and therefore should swing forward)
+
+// Thresholds for Gait FSM
+#define GAIT_HEEL_OFF_SWING_RET_TH 400 // threshold for determining going from HEEL_OFF to SWING_RET state (uses zero toe load)
+#define GAIT_SWING_EXT_END_TH 400 // threshold for determining going from SWING_EXT to END state (uses heel loading) 

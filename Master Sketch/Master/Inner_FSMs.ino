@@ -45,3 +45,28 @@ void Free_Swing() {
     curr_speed = 0;
   }
 }
+
+int GaitFSM(GaitFSMState init_state) {
+  gait_curr_state = init_state;
+  switch(gait_curr_state) {
+    case HEEL_OFF:
+      // Bend_Knee();
+      if (lcFront <= GAIT_HEEL_OFF_SWING_RET_TH ) {
+        gait_curr_state = SWING_RET;
+      }
+      return 1;
+    case SWING_RET:
+      // Retract_Knee();
+      // if (yAcc == ankles_aligned_threshold) {
+        gait_curr_state = SWING_EXT;
+      return 1;
+    case SWING_EXT:
+      // Extend_Knee();
+      if (lcBack > GAIT_SWING_EXT_END_TH) {
+        gait_curr_state = HEEL_OFF; // set it back to the first state for the next run of the Gait FSM
+      }
+      return 0;
+    default:
+      return 1;
+  }
+}
