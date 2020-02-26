@@ -11,4 +11,4 @@ void Stand(void);
 // Function that tries to mimic "free swing" by finding the "angle" of gravity
 void Free_Swing(void);
 // Function that manages the gait cycle through an FSM
-void GaitFSM(GaitFSMState init_state);
+int GaitFSM(GaitFSMState init_state);

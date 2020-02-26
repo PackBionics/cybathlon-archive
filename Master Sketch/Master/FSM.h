@@ -8,4 +8,4 @@ boolean fully_extended = true; // global variable for keeping track of if the le
 boolean retracted = false; // global variable for keeping track of whether the leg has been retracted recently (reset to false when leg changes out of RETRACTED State)
 
 // FSM Function
-void MasterFSM(FSMState init_state);
+void MasterFSM(MasterFSMState init_state);
