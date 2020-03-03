@@ -1,4 +1,4 @@
-// boolean for whether the leg has fully retracted for RETRACTION State
+ // boolean for whether the leg has fully retracted for RETRACTION State
 //boolean retracted = false;
 
 /**

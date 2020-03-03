@@ -33,6 +33,27 @@ int rotate(int dir, int angle) {
   }
 }
 
+int rot(int angle) {
+  int vel = MAX_MPWR;
+  int slowVel = MAX_MPWR / 2;
+
+  if (encKnee < (angle - RANGE_STOP)) {
+    digitalWrite(DIR, MTR_BACKWARD);
+    if ((angle - encKnee) < RANGE_SLOW)
+      curr_speed = slowVel;
+    else curr_speed = MAX_MPWR;
+  }
+  else if (encKnee > (angle + RANGE_STOP)) {
+    digitalWrite(DIR, MTR_FORWARD);
+    if ((encKnee - angle) < RANGE_SLOW)
+      curr_speed = slowVel;
+    else curr_speed = MAX_MPWR;
+  }
+  else curr_speed = MIN_MPWR;
+
+  analogWrite(PWM, curr_speed);  
+}
+
 // we are assuming high for dir is clockwise
 ///**
 // * @param halt is the stopping position

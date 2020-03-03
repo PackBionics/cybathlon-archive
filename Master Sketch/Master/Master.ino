@@ -60,4 +60,6 @@ void loop() {
 //      Serial.println();
 //    MasterFSM(curr_state); 
   Serial.println(encKnee);
+  rot(100);
+  Serial.println(curr_speed);
 }

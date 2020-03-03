@@ -1,7 +1,7 @@
 #define PWM         9                   //Pin for Power of motor.
 #define DIR         10                  //Pin for Direction of the motor.
 
-int speed = 0;
+int vel = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -14,19 +14,20 @@ void loop() {
     char input = Serial.read();
     
     if (input == 'w') {
-      if (speed == 0) {
+      if (vel == 0) {
         digitalWrite(DIR, HIGH);
       }
-      speed += 25;
+      vel += 25;
     }
     
     if (input == 's') {
-      if (speed == 0) {
+      if (vel == 0) {
         digitalWrite(DIR, LOW);
       }
-      speed -= 25;
+      vel -= 25;
     }
     
   }
-  analogWrite(PWM, abs(speed));
+  analogWrite(PWM, abs(vel));
+  Serial.println(vel);
 }
