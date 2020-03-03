@@ -19,9 +19,9 @@ void setup() {
   // Initialize
   Init_Encoders();
   Init_LC();
-  Init_Motors();
-  Init_Button();
-  Init_Interrupt();
+//  Init_Motors();
+//  Init_Button();
+//  Init_Interrupt();
   
   #ifdef DEBUG_CONFIG
 
@@ -50,14 +50,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-    //  Serial.print("LC: ");
-    //  Serial.print(loadcell1.read()/1000);
-    //  Serial.println();
-    //  Serial.print("Encoder 0: ");
-    //  Serial.print(getPositionSPI(ENC_0, RES14), DEC);
-    //  Serial.println();
-    //  Serial.print("Encoder 1: ");
-    //  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
-    //  Serial.println();
-    MasterFSM(curr_state);
+      Serial.print("LC: ");
+      Serial.print(loadcell1.read()/1000);
+      Serial.println();
+      Serial.print("Encoder 0: ");
+      Serial.print(getPositionSPI(ENC_0, RES14), DEC);
+      Serial.println();
+      Serial.print("Encoder 1: ");
+      Serial.print(getPositionSPI(ENC_1, RES14), DEC);
+      Serial.println();
+//    MasterFSM(curr_state);
 }

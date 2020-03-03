@@ -14,6 +14,7 @@
 
 int curr_ang = 0;                       // global variable for the current angle of the knee
 int curr_speed = MIN_MPWR;              // global variable for the current speed of the motor (pwm)
+bool init_movement = false;             // 
 
 // functions
 void Init_Motors(void);

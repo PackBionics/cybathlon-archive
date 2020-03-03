@@ -73,10 +73,10 @@ void setup() {
   loadcell.set_scale(LOADCELL_DIVIDER);
   loadcell.set_offset(0);
   loadcell.set_gain();
-  loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN);
-  loadcell2.set_scale(LOADCELL_DIVIDER);
-  loadcell2.set_offset(0);
-  loadcell2.set_gain();
+//  loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN);
+//  loadcell2.set_scale(LOADCELL_DIVIDER);
+//  loadcell2.set_offset(0);
+//  loadcell2.set_gain();
 }
 
 void loop() {
