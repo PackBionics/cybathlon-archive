@@ -1,7 +1,7 @@
 #define PWM         9                   //Pin for Power of motor.
 #define DIR         10                  //Pin for Direction of the motor.
 
-int speed = 0;
+int angle = 0;
 
 void setup() {
   Serial.begin(9600);
