@@ -24,6 +24,10 @@ void setup() {
   #ifdef DEBUG_CONFIG
 
   #endif
+
+  #ifdef EXTEND_LEG
+    
+  #endif
   
   #ifdef CALIBRATION_CONFIG_LC
     Calibrate_LC(loadcell1);
@@ -40,10 +44,6 @@ void setup() {
     setZeroSPI(ENC_1);
   #endif
 
-  #ifdef EXTEND_LEG
-    
-  #endif
-
   boolean startDialogue = true;
   int input = 0;
   
@@ -51,40 +51,31 @@ void setup() {
 
 void loop() {
   if (startDialogue) {
-    Serial.println("Welcome to the the Stryder Calibration Setup! Select one of the options below to calibrate.");
-    Serial.println("1: Absolute Encoders");
+    Serial.println("Welcome to the the Stryder Diagnostic Protocol! Select one of the options below to diagnose.");
+    Serial.println("1: Motor and Absolute Encoders");
     Serial.println("2: Load Cells");
     Serial.println("3: Accelerometer");
+    Serial.println("4: Lock Button");
     startDialogue = false;
-    int kneeDialogue = true;
   } else {
     if (Serial.available() > 0) {
       input = Serial.parseInt();
       Serial.read();
-      if (input < 0 || input > 4) {
+      if (input < 1 || input > 4) {
         Serial.println("Not A Valid Option.");
       }
     }
     switch (input) {
         case 1:
-          if (kneeDialogue) {
-            Serial.println("Please Lock Knee at Full Leg Extension. Type ""L"" when knee is locked.");
-            kneeDialogue = false;
-          } else {
-            if (Serial.available() > 0) {
-              char in = Serial.read()
-              if (in == 'L') {
-                int knee180 = encKnee;
-                int cam180 = encCam;
-                
-              }
-            }
-          }
+          
           break;
         case 2:
 
           break;
         case 3:
+
+          break;
+        case 4:
 
           break;
       }

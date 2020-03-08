@@ -26,6 +26,10 @@ void setup() {
   #ifdef DEBUG_CONFIG
 
   #endif
+
+  #ifdef EXTEND_LEG
+    
+  #endif
   
   #ifdef CALIBRATION_CONFIG_LC
     Calibrate_LC(loadcell1);
@@ -42,10 +46,6 @@ void setup() {
     setZeroSPI(ENC_1);
   #endif
 
-  #ifdef EXTEND_LEG
-    
-  #endif
-  
 }
 
 void loop() {
