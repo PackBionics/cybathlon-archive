@@ -46,7 +46,7 @@ void setup() {
 
   boolean startDialogue = true;
   int input = 0;
-  
+  boolean dialogue1 = true;
 }
 
 void loop() {
@@ -57,6 +57,7 @@ void loop() {
     Serial.println("3: Accelerometer");
     Serial.println("4: Lock Button");
     startDialogue = false;
+    dialogue1 = true;
   } else {
     if (Serial.available() > 0) {
       input = Serial.parseInt();
@@ -67,14 +68,38 @@ void loop() {
     }
     switch (input) {
         case 1:
-          
+          if (dialogue1) {
+            Serial.println("Please type in desired knee angle. Type ""Q"" to quit Motor and Absolute Encoders Diagnosis.");
+            dialogue1 = false;
+          } else {
+            if (Serial.available() > 0) {
+              String input = Serial.readString();
+              if (input.equals("Q")) {
+                startDialogue = true;
+                input = 0;
+                Serial.println("Quiting");
+              } else if (isDigit(input.charAt(0))) {
+                int angle = input.toInt();
+                Serial.println("Input Knee Angle (degrees): " + angle);
+                Motor_functions.rot(angle);
+                delay(1000);
+                Serial.println("Knee Encoder Reading: " + encKnee + " degrees");
+                Serial.println("Cam Encoder Reading: " + encCam + " degrees");                
+              } else {
+                Serial.println("Invalid Angle");
+              }
+            }
+          }
           break;
+          
         case 2:
 
           break;
+          
         case 3:
 
           break;
+          
         case 4:
 
           break;
