@@ -6,7 +6,7 @@
 #include "Thresholds.h"
 #include "Sensor_Interrupt.h"
 #include "Inner_FSMs.h"
-//#include "Accelerometer_functions.h"
+#include "Accelerometer_functions.h"
 
 
 //#define DEBUG_CONFIG // comment this line out to run full system
@@ -22,6 +22,7 @@ void setup() {
 //  Init_Motors();
 //  Init_Button();
   Init_Interrupt();
+  Init_Accelerometer();
   
   #ifdef DEBUG_CONFIG
 
