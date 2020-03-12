@@ -10,27 +10,57 @@ void Init_Motors()
 }
 
 /**
- * rotate is the base function for turning the motor
- * @param dir - is the direction of that the motor spins
- * @param angle - is the destination angle at the end of the rotation
- * @return the current angle
+ * Rotates the leg to the specified angle
+ * If a new angle is given, then the function will first determine whether it needs to reverse
+ *    If it does not need to reverse, then it will adjust the speed arc and continue in its trajectory
+ *    If the given angle is the in the opposite direction of the way the motor is currently spinning,
+ *      then the motor will ramp down first before instantiating the movement from a 0 speed state
+ * 
+ * @param angle - the destination angle
  */
-int rotate(int dir, int angle) {
-  digitalWrite(DIR, dir);
-  curr_ang = encKnee;
-  int threshold_range = dir == MTR_FORWARD ? angle + RANGE_SLOW : angle - RANGE_SLOW; // This may change depending on direction of spinning
-  if (curr_speed < MAX_MPWR && curr_ang > threshold_range) {
-    // speed motor up - need more effective implementation here (same for slowing down)
-    curr_speed++;
-  } else if (curr_ang < threshold_range && curr_speed != 0) {
-    curr_speed--;
+void rotate(int angle) {
+  // Check to see if new movement was instantiated
+  if (angle != dest_ang) {
+    init_movement = false;
+    dest_ang = encKnee;
   }
-  if (curr_ang < angle + RANGE_STOP && curr_ang > angle - RANGE_STOP) { // range of error allowed
-    curr_speed = 0;
-    analogWrite(PWM, curr_speed);
-  } else {
-    analogWrite(PWM, curr_speed);
+  
+  // determine if direction needs changing and if it needs to ramp down
+  int tmp_direction = angle > encKnee ? MTR_BACKWARD : MTR_FORWARD;
+  bool reverse = false;
+  if (curr_speed != 0 && tmp_direction != curr_dir) {
+    bool reverse = true;
+    //Ramp Down to 0 speed
+    if (curr_speed >= 20 && updated_sensors_motor) {
+      curr_speed -= curr_speed*0.2;
+    } else if (updated_sensors_motor) {
+      curr_speed = 0;
+    } // else curr_speed doesn't change until boolean is reset on timer (based on interrupt)
   }
+  
+  // If it is a new movement and doesn't need to ramp down, instantiate motor movement
+  if (!init_movement && !reverse) {
+    init_movement = true;
+    dest_ang = angle;
+    init_ang = encKnee;     // this is ONLY set here because this is where we want to "start" the movement from a 0 power or positive (same direction) power state
+    curr_dir = tmp_direction;
+    // determine start speed
+    int s = MIN_SSPEED > curr_speed ? MIN_SSPEED : curr_speed;
+    // determine constants a, b, and c for quadratic
+    a = -4 * ACC_CONST / dest_ang + 2 * s / (dest_ang * dest_ang);
+    b = 4 * ACC_CONST - 3 * s / dest_ang;
+    c = s;
+  }
+  if (!reverse) {
+    curr_speed = a * encKnee * encKnee + b * encKnee + c;
+  }
+
+  // write the new speed and direction to the pins
+  digitalWrite(DIR, curr_dir);
+  analogWrite(PWM, curr_speed);
+
+  // set this to false - this is how we use the interrupt as a timer to update speed periodically without separate timer
+  updated_sensors_motor = false;
 }
 
 int rot(int angle) {
@@ -53,6 +83,34 @@ int rot(int angle) {
 
   analogWrite(PWM, curr_speed);  
 }
+
+/*************************************************************************************
+ * Legacy Code
+ ************************************************************************************/
+ 
+///**
+// * rotate is the base function for turning the motor
+// * @param dir - is the direction of that the motor spins
+// * @param angle - is the destination angle at the end of the rotation
+// * @return the current angle
+// */
+//int rotate(int dir, int angle) {
+//  digitalWrite(DIR, dir);
+//  curr_ang = encKnee;
+//  int threshold_range = dir == MTR_FORWARD ? angle + RANGE_SLOW : angle - RANGE_SLOW; // This may change depending on direction of spinning
+//  if (curr_speed < MAX_MPWR && curr_ang > threshold_range) {
+//    // speed motor up - need more effective implementation here (same for slowing down)
+//    curr_speed++;
+//  } else if (curr_ang < threshold_range && curr_speed != 0) {
+//    curr_speed--;
+//  }
+//  if (curr_ang < angle + RANGE_STOP && curr_ang > angle - RANGE_STOP) { // range of error allowed
+//    curr_speed = 0;
+//    analogWrite(PWM, curr_speed);
+//  } else {
+//    analogWrite(PWM, curr_speed);
+//  }
+//}
 
 // we are assuming high for dir is clockwise
 ///**

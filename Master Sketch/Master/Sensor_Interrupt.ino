@@ -21,15 +21,16 @@ void Init_Interrupt() {
  * Function to update sensor global variables
  */
 void Read_Sensors() {
-  if (read_vel) {
-    vel = 10 * encKnee
-  }
+//  if (read_vel) {
+//    vel = 10 * encKnee
+//  }
+  updated_sensors_motor = true;
   encKnee = bitToDegrees(getPositionSPI(ENC_0, RES14));
-//  encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
-//  lcFront = Read_LC1();
-//  lcBack = Read_LC2();
-//  lcLeft = Read_LC3();
-//  lcRight = Read_LC4();
+  encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
+  lcFront = Read_LC1();
+  lcBack = Read_LC2();
+  lcLeft = Read_LC3();
+  lcRight = Read_LC4();
   if (encKnee == RET_ANG) {
     fully_retracted = true;
     fully_extended = false;

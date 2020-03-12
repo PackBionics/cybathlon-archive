@@ -11,19 +11,29 @@
 #define EXT_ANG       0                 // angle of fully extended leg
 #define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
 #define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
+#define MIN_SSPEED    30                // minimum starting speed
+#define ACC_CONST     4                 // constant used for determining 3rd point in quadratic equation used for determing speed
 
-int curr_ang = 0;                       // global variable for the current angle of the knee
 int curr_speed = MIN_MPWR;              // global variable for the current speed of the motor (pwm)
-bool init_movement = false;             // 
+int curr_dir = MTR_FORWARD;              // global variable for the current direction the motor is spinning
+bool init_movement = false;             // global variable dictating whether this is the initial movement (true if movement in progress)
+int dest_ang = 0;                       // global variable for destination angle for rotation (only changed when init_movement is set to true)
+int init_ang = 0;                       // global variable for initial angle at start of movement (only set when init_movement is set to true)
+float a;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
+float b;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
+float c;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
+bool updated_sensors_motor = false;     // boolean for determining whether the sensors have been updated since last call of motor function
+
 
 // functions
 void Init_Motors(void);
-int rotate(int dir, int angle);
+void rotate(int angle);
 int rot(int angle);
 
 
 
 
+//int curr_ang = 0;                       // global variable for the current angle of the knee
 
 //uint16_t rotate(uint16_t halt, uint8_t pwm, uint8_t dir);
 //uint16_t stall(uint8_t pwm, uint8_t dir);
