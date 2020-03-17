@@ -29,7 +29,7 @@ void rotate(int angle) {
   int tmp_direction = angle > encKnee ? MTR_BACKWARD : MTR_FORWARD;
   bool reverse = false;
   if (curr_speed != 0 && tmp_direction != curr_dir) {
-    bool reverse = true;
+    reverse = true;
     //Ramp Down to 0 speed
     if (curr_speed >= 20 && updated_sensors_motor) {
       curr_speed -= curr_speed*0.2;
