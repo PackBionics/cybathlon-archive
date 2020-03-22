@@ -4,10 +4,10 @@
 void Sit() {
   if (getX() > SIT_X_TH_POS) {
     curr_speed++;
-    rotate(RET_ANG);
+    rotate(MTR_BACKWARD, RET_ANG);
   } else if (getX() < SIT_X_TH_NEG) {
     curr_speed--;
-    rotate(RET_ANG);
+    rotate(MTR_BACKWARD, RET_ANG);
   }
 }
 
@@ -17,10 +17,10 @@ void Sit() {
 void Stand() {
     if (getX() > STAND_X_TH_POS) {
     curr_speed++;
-    rotate(EXT_ANG);
+    rotate(MTR_FORWARD, EXT_ANG);
   } else if (getX() < STAND_X_TH_NEG) {
     curr_speed--;
-    rotate(EXT_ANG);
+    rotate(MTR_FORWARD, EXT_ANG);
   }
 }
 
@@ -32,9 +32,9 @@ void Free_Swing() {
   if (abs(getX() + getY()) > G_TH) {
     if (getY() > G_TH_MAX || getY() < G_TH_MIN) {
       if (getX() < FS_X_TH_NEG) {
-        rotate(g_ang);
+        rotate(MTR_FORWARD, g_ang);
       } else {
-        rotate(g_ang);
+        rotate(MTR_BACKWARD, g_ang);
       }
     } else {
       analogWrite(PWM, 0);
