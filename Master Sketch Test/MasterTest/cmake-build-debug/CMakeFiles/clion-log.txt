@@ -1,0 +1,13 @@
+"/Users/ramsothman/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/193.6494.38/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/ramsothman/Documents/Backup/cybathlonTest/Master Sketch Test/MasterTest"
+-- Generating Adafruit_MMA8451
+-- Generating micro_Wire for library Wire
+-- Generating micro_twi for library twi
+-- Found library Wire needs micro_Wire;micro_twi
+-- Generating Adafruit_Sensor
+-- Generating TimerOne
+-- Generating MasterSketch
+-- Generating micro_SPI for library SPI
+-- Using /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-objcopy for converting firmware image to hex
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/ramsothman/Documents/Backup/cybathlonTest/Master Sketch Test/MasterTest/cmake-build-debug

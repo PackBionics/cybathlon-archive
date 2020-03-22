@@ -1,0 +1,2 @@
+/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ar qc libTimerOne.a  CMakeFiles/TimerOne.dir/libraries/TimerOne/TimerOne.cpp.obj
+/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ranlib libTimerOne.a

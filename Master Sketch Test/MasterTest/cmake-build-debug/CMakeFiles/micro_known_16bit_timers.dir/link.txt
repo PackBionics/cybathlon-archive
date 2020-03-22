@@ -1,0 +1,2 @@
+/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ar qc libmicro_known_16bit_timers.a  CMakeFiles/micro_known_16bit_timers.dir/libraries/TimerOne/TimerOne.cpp.obj
+/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ranlib libmicro_known_16bit_timers.a

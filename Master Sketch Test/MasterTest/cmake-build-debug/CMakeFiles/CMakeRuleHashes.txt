@@ -1,0 +1,6 @@
+# Hashes of file build rules.
+7d337cd973f2aa84ddac480c63bbff2f CMakeFiles/MasterSketch-size
+09ab0517d551ac28db983d36eb2144a8 CMakeFiles/MasterSketch-upload
+23b4608313f096988fb87f560c12b8f6 MasterSketch_Accelerometer_functions.ino.cpp
+23b4608313f096988fb87f560c12b8f6 MasterSketch_MasterSketch.ino.cpp
+23b4608313f096988fb87f560c12b8f6 MasterSketch_Sensor_Interrupt.ino.cpp
