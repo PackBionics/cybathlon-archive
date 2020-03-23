@@ -1,2 +1,0 @@
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ar qc libHX711.a  
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ranlib libHX711.a

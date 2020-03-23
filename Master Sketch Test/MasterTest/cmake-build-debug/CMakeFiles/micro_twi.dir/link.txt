@@ -1,2 +1,0 @@
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ar qc libmicro_twi.a  CMakeFiles/micro_twi.dir/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/libraries/Wire/src/Wire.cpp.obj CMakeFiles/micro_twi.dir/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/libraries/Wire/src/utility/twi.c.obj
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ranlib libmicro_twi.a

@@ -1,2 +1,0 @@
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ar qc libmicro_HX711.a  CMakeFiles/micro_HX711.dir/libraries/HX711/HX711.cpp.obj
-/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-ranlib libmicro_HX711.a
