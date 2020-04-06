@@ -3,10 +3,22 @@
  */
 void Init_Motors()
 {
-  pinMode(PWM, OUTPUT);
-  pinMode(DIR, OUTPUT);  
-  analogWrite(PWM,0);
-  digitalWrite(DIR,HIGH);
+    pinMode(PWM, OUTPUT);
+    pinMode(DIR, OUTPUT);
+    analogWrite(PWM,0);
+    digitalWrite(DIR,HIGH);
+}
+
+/**
+ * calculates the parabola constants, a, b, and c for determining speed based on distance from desired angle
+ */
+void calcParabConsts() {
+    // determine start speed
+    int s = MIN_SSPEED > curr_speed ? MIN_SSPEED : curr_speed;
+    // determine constants a, b, and c for quadratic
+    a = -4.0 * (float) acc_const / (float) dest_ang + 2.0 * (float) s / ((float) dest_ang * (float) dest_ang);
+    b = 4.0 * (float) acc_const - 3.0 * (float) s / (float) dest_ang;
+    c = (float) s;
 }
 
 /**
@@ -19,76 +31,79 @@ void Init_Motors()
  * @param angle - the destination angle
  */
 void rotate(int angle) {
-  // Check to see if new movement was instantiated
-  if (angle != dest_ang) {
-    init_movement = false;
-    dest_ang = encKnee;
-  }
-  
-  // determine if direction needs changing and if it needs to ramp down
-  int tmp_direction = angle > encKnee ? MTR_BACKWARD : MTR_FORWARD;
-  bool reverse = false;
-  if (curr_speed != 0 && tmp_direction != curr_dir) {
-    reverse = true;
-    //Ramp Down to 0 speed
-    if (curr_speed >= 20 && updated_sensors_motor) {
-      curr_speed -= curr_speed*0.2;
-    } else if (updated_sensors_motor) {
-      curr_speed = 0;
-    } // else curr_speed doesn't change until boolean is reset on timer (based on interrupt)
-  }
-  
-  // If it is a new movement and doesn't need to ramp down, instantiate motor movement
-  if (!init_movement && !reverse) {
-    init_movement = true;
-    dest_ang = angle;
-    init_ang = encKnee;     // this is ONLY set here because this is where we want to "start" the movement from a 0 power or positive (same direction) power state
-    curr_dir = tmp_direction;
-    // determine start speed
-    int s = MIN_SSPEED > curr_speed ? MIN_SSPEED : curr_speed;
-    // determine constants a, b, and c for quadratic
-    a = -4 * ACC_CONST / dest_ang + 2 * s / (dest_ang * dest_ang);
-    b = 4 * ACC_CONST - 3 * s / dest_ang;
-    c = s;
-  }
-  if (!reverse) {
-    curr_speed = a * encKnee * encKnee + b * encKnee + c;
-  }
+    // Check to see if new movement was instantiated
+    if (angle != dest_ang) {
+        init_movement = false;
+    }
 
-  // write the new speed and direction to the pins
-  digitalWrite(DIR, curr_dir);
-  analogWrite(PWM, curr_speed);
+    // determine if direction needs changing and if it needs to ramp down
+    int tmp_direction = angle > encKnee ? MTR_BACKWARD : MTR_FORWARD;
+    bool reverse = false;
+    if (curr_speed != 0 && tmp_direction != curr_dir) {
+        reverse = true;
+        //Ramp Down to 0 speed
+        if (curr_speed >= 20 && updated_sensors_motor) {
+            curr_speed -= curr_speed*ramp_down_const;
+        } else if (updated_sensors_motor) {
+            curr_speed = 0;
+            ramp_down_const = RMP_DWN_CONST; // reset ramp_down_const after finishing the ramp down
+        } // else curr_speed doesn't change until boolean is reset on timer (based on interrupt)
+    }
 
-  // set this to false - this is how we use the interrupt as a timer to update speed periodically without separate timer
-  updated_sensors_motor = false;
-}
+    // If it is a new movement and doesn't need to ramp down, instantiate motor movement
+    if (!init_movement && !reverse) {
+        init_movement = true;
+        dest_ang = angle;
+        init_ang = encKnee;     // this is ONLY set here because this is where we want to "start" the movement from a 0 power or positive (same direction) power state
+        curr_dir = tmp_direction;
 
-int rot(int angle) {
-  int vel = MAX_MPWR;
-  int slowVel = MAX_MPWR / 2;
+        // determine constants a, b, and c for quadratic
+        calcParabConsts();
+    }
+    if (!reverse) {
+        curr_speed = a * encKnee * encKnee + b * encKnee + c;
+        if (abs(encKnee - angle) > RANGE_STOP) {
+            curr_speed = curr_speed > MIN_SSPEED ? curr_speed : MIN_SSPEED; // if the speed is too low, have minimum speed kick in to keep motor moving
+        } else {
+            curr_speed = 0;
+            acc_const = ACC_CONST; // reset acc_const once reaching final destination
+        }
+    }
 
-  if (encKnee < (angle - RANGE_STOP)) {
-    digitalWrite(DIR, MTR_BACKWARD);
-    if ((angle - encKnee) < RANGE_SLOW)
-      curr_speed = slowVel;
-    else curr_speed = MAX_MPWR;
-  }
-  else if (encKnee > (angle + RANGE_STOP)) {
-    digitalWrite(DIR, MTR_FORWARD);
-    if ((encKnee - angle) < RANGE_SLOW)
-      curr_speed = slowVel;
-    else curr_speed = MAX_MPWR;
-  }
-  else curr_speed = MIN_MPWR;
+    // write the new speed and direction to the pins
+    digitalWrite(DIR, curr_dir);
+    analogWrite(PWM, curr_speed);
 
-  analogWrite(PWM, curr_speed);  
+    // set this to false - this is how we use the interrupt as a timer to update speed periodically without separate timer
+    updated_sensors_motor = false;
 }
 
 /*************************************************************************************
  * Legacy Code
  ************************************************************************************/
- 
-///**
+
+//int rot(int angle) {
+//    int vel = MAX_MPWR;
+//    int slowVel = MAX_MPWR / 2;
+//
+//    if (encKnee < (angle - RANGE_STOP)) {
+//        digitalWrite(DIR, MTR_BACKWARD);
+//        if ((angle - encKnee) < RANGE_SLOW)
+//            curr_speed = slowVel;
+//        else curr_speed = MAX_MPWR;
+//    }
+//    else if (encKnee > (angle + RANGE_STOP)) {
+//        digitalWrite(DIR, MTR_FORWARD);
+//        if ((encKnee - angle) < RANGE_SLOW)
+//            curr_speed = slowVel;
+//        else curr_speed = MAX_MPWR;
+//    }
+//    else curr_speed = MIN_MPWR;
+//
+//    analogWrite(PWM, curr_speed);
+//}
+
+// /**
 // * rotate is the base function for turning the motor
 // * @param dir - is the direction of that the motor spins
 // * @param angle - is the destination angle at the end of the rotation
@@ -113,7 +128,7 @@ int rot(int angle) {
 //}
 
 // we are assuming high for dir is clockwise
-///**
+// /**
 // * @param halt is the stopping position
 // * @param is the max speed
 // * @param dir is the direction

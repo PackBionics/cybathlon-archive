@@ -5,14 +5,16 @@
 //#define STOP_DIST   5                 // error for stopping motor
 #define MAX_MPWR      255                 // max motor power = MOTOR_PWR + MIN_MPWR <= 255
 #define MIN_MPWR      0                   // initial minimum motor power
-#define RANGE_STOP    5                   // error for stopping
+#define RANGE_STOP    2                   // error for stopping
 #define RANGE_SLOW    20                  // error for slowing down
 #define RET_ANG       120               // angle of fully retracted leg
 #define EXT_ANG       0                 // angle of fully extended leg
 #define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
 #define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
-#define MIN_SSPEED    30                // minimum starting speed
-#define ACC_CONST     4                 // constant used for determining 3rd point in quadratic equation used for determing speed
+#define MIN_SSPEED    30                // minimum starting/end speed
+#define ACC_CONST     4                 // default for acc_const
+#define RMP_DWN_CONST 0.2               // default ramp_down_const
+
 
 int curr_speed = MIN_MPWR;              // global variable for the current speed of the motor (pwm)
 int curr_dir = MTR_FORWARD;              // global variable for the current direction the motor is spinning
@@ -23,10 +25,12 @@ float a;                                // part of quadratic used for determinin
 float b;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
 float c;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
 bool updated_sensors_motor = false;     // boolean for determining whether the sensors have been updated since last call of motor function
-
+int acc_const = ACC_CONST;              // constant used for determining 3rd point in quadratic equation used for determining speed
+float ramp_down_const = RMP_DWN_CONST;  // constant used for determining how fast the motor ramps down when reversing from previous movement
 
 // functions
 void Init_Motors(void);
+void calcParabConsts(void);
 void rotate(int angle);
 int rot(int angle);
 
