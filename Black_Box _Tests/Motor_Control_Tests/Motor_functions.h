@@ -7,7 +7,7 @@
 #define MIN_MPWR      0                   // initial minimum motor power
 #define RANGE_STOP    2                   // error for stopping
 #define RANGE_SLOW    20                  // error for slowing down
-#define RET_ANG       120               // angle of fully retracted leg
+#define RET_ANG       115               // angle of fully retracted leg
 #define EXT_ANG       0                 // angle of fully extended leg
 #define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
 #define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
