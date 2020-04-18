@@ -22,7 +22,7 @@ void setup() {
     Init_Motors();
 //  Init_Button();
     Init_Interrupt();
-    Init_Accelerometer();
+//    Init_Accelerometer();
 
 #ifdef DEBUG_CONFIG
 
@@ -39,6 +39,7 @@ void setup() {
     // For calibrating encoders, we need to first
     // make sure that they are initialized at full extension
     // Then we set the encoders to 0
+    delayMicroseconds(50000);
     setZeroSPI(ENC_0);
     setZeroSPI(ENC_1);
 #endif
@@ -46,7 +47,7 @@ void setup() {
 #ifdef EXTEND_LEG
 
 #endif
-
+    delay(1000);
 }
 
 void loop() {
@@ -60,7 +61,20 @@ void loop() {
 //  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
 //  Serial.println();
 //  MasterFSM(curr_state);
-    Serial.println(encKnee);
+//    Serial.println(encKnee);
 //    rot(100);
-    Serial.println(curr_speed);
+//    Serial.println(curr_speed);
+  Serial.print("Knee Angle: ");
+  Serial.print(encKnee);
+  Serial.print("\t Speed: ");
+  Serial.println(curr_speed);
+  int new_ang;
+  if (encKnee >= 90) {
+    new_ang = 20;
+  } else if (encKnee <= 30) {
+    new_ang = 110;
+  }
+  rotate(new_ang);
+
+  
 }

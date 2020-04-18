@@ -1,7 +1,7 @@
 void Init_Accelerometer() {
-  if (! mma.begin()) {
+  if (!mma.begin()) {
     Serial.println("Couldnt start");
-    while (1);
+    while (!mma.begin());
   }  
   if (mma.getRange() != 1) {
     mma.setRange(MMA8451_RANGE_2_G);

@@ -16,8 +16,9 @@ void calcParabConsts() {
     // determine start speed
     int s = MIN_SSPEED > curr_speed ? MIN_SSPEED : curr_speed;
     // determine constants a, b, and c for quadratic
-    a = -4.0 * (float) acc_const / (float) dest_ang + 2.0 * (float) s / ((float) dest_ang * (float) dest_ang);
-    b = 4.0 * (float) acc_const - 3.0 * (float) s / (float) dest_ang;
+    int delta_ang = abs(dest_ang - init_ang);
+    a = -4.0 * (float) acc_const / (float) delta_ang + 2.0 * (float) s / ((float) delta_ang * (float) delta_ang);
+    b = 4.0 * (float) acc_const - 3.0 * (float) s / (float) delta_ang;
     c = (float) s;
 }
 
@@ -31,6 +32,8 @@ void calcParabConsts() {
  * @param angle - the destination angle
  */
 void rotate(int angle) {
+    angle = angle > 115 ? 115 : angle;
+    angle = angle < 0 ? 0 : angle;
     // Check to see if new movement was instantiated
     if (angle != dest_ang) {
         init_movement = false;
@@ -61,7 +64,8 @@ void rotate(int angle) {
         calcParabConsts();
     }
     if (!reverse) {
-        curr_speed = a * encKnee * encKnee + b * encKnee + c;
+        int delta_ang = abs(encKnee - init_ang);
+        curr_speed = a * delta_ang * delta_ang + b * delta_ang + c;
         if (abs(encKnee - angle) > RANGE_STOP) {
             curr_speed = curr_speed > MIN_SSPEED ? curr_speed : MIN_SSPEED; // if the speed is too low, have minimum speed kick in to keep motor moving
         } else {
@@ -69,10 +73,12 @@ void rotate(int angle) {
             acc_const = ACC_CONST; // reset acc_const once reaching final destination
         }
     }
+    curr_speed = curr_speed > 255 ? 255 : curr_speed;
 
     // write the new speed and direction to the pins
     digitalWrite(DIR, curr_dir);
     analogWrite(PWM, curr_speed);
+//    analogWrite(PWM, 0);
 
     // set this to false - this is how we use the interrupt as a timer to update speed periodically without separate timer
     updated_sensors_motor = false;
