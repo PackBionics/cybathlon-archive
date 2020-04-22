@@ -8,25 +8,17 @@ void Init_Accelerometer() {
   }
 }
 
-int getX() {
+double getX() {
   mma.getEvent(&event);
   return event.acceleration.x;
 }
 
-int getY() {
+double getY() {
   mma.getEvent(&event);
   return event.acceleration.y;
 }
 
-int getZ() {
+double getZ() {
   mma.getEvent(&event);
   return event.acceleration.z;
-}
-
-/**
- * converts given acceleration to an angle that can be
- * used for calculating angle direction for gravity
- */
-int acc_to_ang(int acc) {
-  return 0;
 }
