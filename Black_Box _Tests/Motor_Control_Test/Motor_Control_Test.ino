@@ -14,6 +14,7 @@
 #define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
 //#define EXTEND_LEG // this is used to extend the leg upon startup
 
+int s;
 
 void setup() {
   // Initialize
@@ -52,7 +53,6 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    int s;
     s = Serial.parseInt();
     Serial.read();
     rotate(s);
