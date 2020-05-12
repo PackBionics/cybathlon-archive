@@ -39,7 +39,31 @@ void setup() {
   Init_Accelerometer();
   Serial.begin(9600);
   startTest = false;
-
+  
+  // Message Explaining Test Parameters
+  Serial.write("This test applies to Black Box Test(s) 4, 5a, and 5b");
+  Serial.write("\n");
+  Serial.write("The purpose of the test is to see how the system responds to a quick change in movement");
+  Serial.write("\n");
+  Serial.write("List of test parameters and format: ");
+  Serial.write("\n");
+  Serial.write("Starting Position,First Position,Trigger Angle,Second Position");
+  Serial.write("\n");
+  Serial.write("Angles are relative about the knee, maximum is ~115 deg and minimum is 0 deg, ex: leg straight is zero degrees");
+  Serial.write("\n");
+  Serial.write("Starting Position: Initial position (degrees) at which the leg is moved to before test movement ");
+  Serial.write("\n");
+  Serial.write("First Position: Leg begins to move from start position to first position (degrees)");
+  Serial.write("\n");
+  Serial.write("Trigger Angle: Angle (degrees) at which leg switches direction and moves towards second position");
+  Serial.write("\n");
+  Serial.write("Second position: Angle (degrees) that the leg finally moves to and comes to rest");
+  Serial.write("\n");
+  Serial.write("What You Write In the Serial Monitor Example: ");
+  Serial.write("\n");
+  Serial.write("0,60,40,20");
+  Serial.write("\n");
+  Serial.write("So the leg starts out straight, is moving to 60 degrees, once it hits 40 degrees and then moves to 20 degress coming to a stop");
 
 #ifdef DEBUG_CONFIG
 
@@ -94,6 +118,7 @@ void loop() {
       startTest = false;
     }
   }
+  
 //  if (Serial.available() > 0) {
 //    String s = Serial.readString();
 //    int s0 = s.indexOf(",");
@@ -111,9 +136,9 @@ void loop() {
 //  if (toc-tic > 500) {
 //    rotate(secondPos);
 //  }
-//  Serial.print("Knee Encoder: ");
-//  Serial.print(encKnee);
-//  Serial.print("\t");
-//  Serial.print("CAM Encoder: ");
-//  Serial.println(encCAM);
+  Serial.print("Knee Encoder: ");
+  Serial.print(encKnee);
+  Serial.print("\t");
+  Serial.print("CAM Encoder: ");
+  Serial.println(encCAM);
 }
