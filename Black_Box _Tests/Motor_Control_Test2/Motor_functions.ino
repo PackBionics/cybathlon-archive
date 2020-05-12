@@ -1,3 +1,5 @@
+#include "Math.h"
+
 /**
  * Initializes motor
  */
@@ -16,8 +18,9 @@ void calcParabConsts() {
     // determine start speed
     int s = MIN_SSPEED > curr_speed ? MIN_SSPEED : curr_speed;
     // determine constants a, b, and c for quadratic
-    a = -4.0 * (float) acc_const / (float) dest_ang + 2.0 * (float) s / ((float) dest_ang * (float) dest_ang);
-    b = 4.0 * (float) acc_const - 3.0 * (float) s / (float) dest_ang;
+    int delta_ang = abs(dest_ang - init_ang);
+    a = -4.0 * (float) acc_const / (float) delta_ang + 2.0 * (float) s / ((float) delta_ang * (float) delta_ang);
+    b = 4.0 * (float) acc_const - 3.0 * (float) s / (float) delta_ang;
     c = (float) s;
 }
 
@@ -31,6 +34,9 @@ void calcParabConsts() {
  * @param angle - the destination angle
  */
 void rotate(int angle) {
+    // limit the input angles to be between the min and max ranges of the knee's capabilities
+    angle = angle > MAX_RET_ANG ? MAX_RET_ANG : angle;
+    angle = angle < MAX_EXT_ANG ? MAX_EXT_ANG : angle;
     // Check to see if new movement was instantiated
     if (angle != dest_ang) {
         init_movement = false;
@@ -61,7 +67,8 @@ void rotate(int angle) {
         calcParabConsts();
     }
     if (!reverse) {
-        curr_speed = a * encKnee * encKnee + b * encKnee + c;
+        int delta_ang = abs(encKnee - init_ang);
+        curr_speed = a * delta_ang * delta_ang + b * delta_ang + c;
         if (abs(encKnee - angle) > RANGE_STOP) {
             curr_speed = curr_speed > MIN_SSPEED ? curr_speed : MIN_SSPEED; // if the speed is too low, have minimum speed kick in to keep motor moving
         } else {
@@ -69,6 +76,7 @@ void rotate(int angle) {
             acc_const = ACC_CONST; // reset acc_const once reaching final destination
         }
     }
+    curr_speed = curr_speed > 255 ? 255 : curr_speed;
 
     // write the new speed and direction to the pins
     digitalWrite(DIR, curr_dir);
@@ -78,85 +86,18 @@ void rotate(int angle) {
     updated_sensors_motor = false;
 }
 
-/*************************************************************************************
- * Legacy Code
- ************************************************************************************/
 
-//int rot(int angle) {
-//    int vel = MAX_MPWR;
-//    int slowVel = MAX_MPWR / 2;
-//
-//    if (encKnee < (angle - RANGE_STOP)) {
-//        digitalWrite(DIR, MTR_BACKWARD);
-//        if ((angle - encKnee) < RANGE_SLOW)
-//            curr_speed = slowVel;
-//        else curr_speed = MAX_MPWR;
-//    }
-//    else if (encKnee > (angle + RANGE_STOP)) {
-//        digitalWrite(DIR, MTR_FORWARD);
-//        if ((encKnee - angle) < RANGE_SLOW)
-//            curr_speed = slowVel;
-//        else curr_speed = MAX_MPWR;
-//    }
-//    else curr_speed = MIN_MPWR;
-//
-//    analogWrite(PWM, curr_speed);
-//}
+void Free_Swing() {
+    if ( accY < G_TH_Y_ACC) {
+        int thetaG = acos(accY / gravAcc) * 180 / PI;
+        int thetaH = (accX > 0 ? encKnee - thetaG : encKnee + thetaG);
+        rotate(thetaH);
+    }
+}
 
-// /**
-// * rotate is the base function for turning the motor
-// * @param dir - is the direction of that the motor spins
-// * @param angle - is the destination angle at the end of the rotation
-// * @return the current angle
-// */
-//int rotate(int dir, int angle) {
-//  digitalWrite(DIR, dir);
-//  curr_ang = encKnee;
-//  int threshold_range = dir == MTR_FORWARD ? angle + RANGE_SLOW : angle - RANGE_SLOW; // This may change depending on direction of spinning
-//  if (curr_speed < MAX_MPWR && curr_ang > threshold_range) {
-//    // speed motor up - need more effective implementation here (same for slowing down)
-//    curr_speed++;
-//  } else if (curr_ang < threshold_range && curr_speed != 0) {
-//    curr_speed--;
-//  }
-//  if (curr_ang < angle + RANGE_STOP && curr_ang > angle - RANGE_STOP) { // range of error allowed
-//    curr_speed = 0;
-//    analogWrite(PWM, curr_speed);
-//  } else {
-//    analogWrite(PWM, curr_speed);
-//  }
-//}
+/**
+ * TODO: This function will ensure the cam is at the correct angle with the knee in order to keep the cables in tension as the leg extends
+ */
+ void cableTension() {
 
-// we are assuming high for dir is clockwise
-// /**
-// * @param halt is the stopping position
-// * @param is the max speed
-// * @param dir is the direction
-// * @return the current position
-// */
-//uint16_t rotate(uint16_t halt, uint8_t pwm, uint8_t dir)
-//{
-//  int curr_pos = getPositionSPI(ENC_0, RES14);
-//  int change_dist = dir ? halt - curr_pos : MAX_DIST - (halt - curr_pos);
-//  int init_dist = change_dist;
-//
-//  while (abs(change_dist) > STOP_DIST)
-//  {
-//    // calculate speed ratio (ramps up and down; fastest at half the distance travelled)
-//    int curr_speed = 1 - abs(change_dist - init_dist / 2);
-//    int speedM = curr_speed * MOTOR_PWR + MIN_MPWR;
-//    // write to the motor to go the desired speed in the desired direction
-//    digitalWrite(DIR, dir);
-//    analogWrite(PWM, speedM);
-//
-//    // get new current position
-//    curr_pos = getPositionSPI(ENC_0, RES14);
-//    change_dist = dir ? halt - curr_pos : MAX_DIST - (halt - curr_pos);
-//  }
-//  return curr_pos;
-//}
-
-//uint16_t stall(uint8_t pwm, uint8_t dir)
-//{
-//  return 0;
-//}
+ }
