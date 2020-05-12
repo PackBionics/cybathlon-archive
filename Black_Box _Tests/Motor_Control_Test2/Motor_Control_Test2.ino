@@ -13,7 +13,7 @@
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
-#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
+//#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
 //#define EXTEND_LEG // this is used to extend the leg upon startup
 
 long tic;
@@ -28,6 +28,7 @@ char seps[] = ",";
 char *token;
 int var;
 int input[4];
+char s[100];
   
 void setup() {
   // Initialize
@@ -36,8 +37,8 @@ void setup() {
   Init_Motors();
   //  Init_Button();
   Init_Interrupt();
-  Init_Accelerometer();
-  Serial.begin(9600);
+//  Init_Accelerometer();
+  Serial.begin(115200);
   startTest = false;
   
   // Message Explaining Test Parameters
@@ -80,6 +81,7 @@ void setup() {
   // For calibrating encoders, we need to first
   // make sure that they are initialized at full extension
   // Then we set the encoders to 0
+  delayMicroseconds(50000);
   setZeroSPI(ENC_0);
   setZeroSPI(ENC_1);
 #endif
@@ -87,28 +89,39 @@ void setup() {
 #ifdef EXTEND_LEG
 
 #endif
-
+  delay(1000);
 }
 
 void loop() {
   // input order: starting position, first position, trigger angle, second position
   if (Serial.available() > 0) {
-    String s = Serial.readString();
+    String string = Serial.readString();
+    string.toCharArray(s,100);
     token = strtok(s, seps);
     for (int i = 0; i < 4; i++) {
       sscanf(token, "%d", &var);
       input[i] = var;
       token = strtok(NULL, seps);
     }
-    startPos = input[0];
+    startingPos = input[0];
     firstPos = input[1];
     triggerAngle = input[2];
     secondPos = input[3];
+    Serial.println("____________________________________________________________________________________");
+    Serial.print("Starting Test w/ Parameters: ");
+    Serial.print(startingPos);
+    Serial.print(" (Starting Position), ");
+    Serial.print(firstPos);
+    Serial.print(" (First Position), ");
+    Serial.print(triggerAngle);
+    Serial.print(" (Trigger Angle), ");
+    Serial.print(secondPos);
+    Serial.println(" (Second Position)");
     startTest = true;
     tic = millis();
   }
   if (startTest) {
-    rotate(startPos);
+    rotate(startingPos);
     toc = millis();
     if (toc-tic > 1000) {
       rotate(firstPos);

@@ -31,9 +31,9 @@ void Read_Sensors() {
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();
-  accX = getX();
-  accY = getY();
-  accZ = getZ();
+//  accX = getX();
+//  accY = getY();
+//  accZ = getZ();
   if (encKnee == MAX_RET_ANG) {
     fully_retracted = true;
     fully_extended = false;

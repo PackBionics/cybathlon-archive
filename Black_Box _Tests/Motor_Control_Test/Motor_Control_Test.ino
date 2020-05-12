@@ -11,7 +11,7 @@
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
-#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
+//#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
 //#define EXTEND_LEG // this is used to extend the leg upon startup
 
 int s;
@@ -23,8 +23,8 @@ void setup() {
   Init_Motors();
   //  Init_Button();
   Init_Interrupt();
-  Init_Accelerometer();
-  Serial.begin(9600);
+//  Init_Accelerometer();
+  Serial.begin(115200);
 
 #ifdef DEBUG_CONFIG
 
@@ -41,6 +41,7 @@ void setup() {
   // For calibrating encoders, we need to first
   // make sure that they are initialized at full extension
   // Then we set the encoders to 0
+  delayMicroseconds(50000);
   setZeroSPI(ENC_0);
   setZeroSPI(ENC_1);
 #endif
@@ -48,13 +49,17 @@ void setup() {
 #ifdef EXTEND_LEG
 
 #endif
-
+  delay(1000);
 }
 
 void loop() {
   if (Serial.available() > 0) {
     s = Serial.parseInt();
     Serial.read();
+    Serial.println("________________________________________________________________________________");
+    Serial.print("Rotating knee to ");
+    Serial.print(s);
+    Serial.println(" degrees.");
     rotate(s);
   }
   Serial.print("Knee Encoder: ");
