@@ -6,9 +6,12 @@ sensors_event_t event;
 
 Adafruit_MMA8451 mma = Adafruit_MMA8451();
 
+double accX;
+double accY;
+double accZ;
+double gravAcc;
 
 void Init_Accelerometer(void);
-int getX(void);
-int getY(void);
-int getZ(void);
-int acc_to_ang(int);
+double getX(void);
+double getY(void);
+double getZ(void);

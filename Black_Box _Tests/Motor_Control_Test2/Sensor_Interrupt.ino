@@ -31,11 +31,14 @@ void Read_Sensors() {
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();
-  if (encKnee == RET_ANG) {
+  accX = getX();
+  accY = getY();
+  accZ = getZ();
+  if (encKnee == MAX_RET_ANG) {
     fully_retracted = true;
     fully_extended = false;
     retracted = true;
-  } else if (encKnee == EXT_ANG) {
+  } else if (encKnee == MAX_EXT_ANG) {
     fully_extended = true;
     fully_retracted = false;
   } else {
