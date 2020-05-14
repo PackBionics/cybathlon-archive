@@ -12,7 +12,7 @@
 #define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
 #define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
 #define MIN_SSPEED    30                // minimum starting/end speed
-#define ACC_CONST     4                 // default for acc_const
+#define ACC_CONST     2                 // default for acc_const
 #define RMP_DWN_CONST 0.2               // default ramp_down_const
 
 

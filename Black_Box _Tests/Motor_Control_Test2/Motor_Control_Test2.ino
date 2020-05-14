@@ -23,6 +23,7 @@ int firstPos;
 int triggerAngle;
 int secondPos;
 boolean startTest;
+int pos;
 
 char seps[] = ",";
 char *token;
@@ -90,6 +91,7 @@ void setup() {
 
 #endif
   delay(1000);
+  pos = encKnee;
 }
 
 void loop() {
@@ -121,17 +123,17 @@ void loop() {
     tic = millis();
   }
   if (startTest) {
-    rotate(startingPos);
+    pos = startingPos;
     toc = millis();
     if (toc-tic > 1000) {
-      rotate(firstPos);
+      pos = firstPos;
     }
     if (toc-tic > 1000 && encKnee == triggerAngle) {
-      rotate(secondPos);
+      pos = secondPos;
       startTest = false;
     }
   }
-  
+  rotate(pos);
 //  if (Serial.available() > 0) {
 //    String s = Serial.readString();
 //    int s0 = s.indexOf(",");

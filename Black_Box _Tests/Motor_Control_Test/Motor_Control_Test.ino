@@ -14,7 +14,7 @@
 //#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
 //#define EXTEND_LEG // this is used to extend the leg upon startup
 
-int s;
+int s = encKnee;
 
 void setup() {
   // Initialize
@@ -60,8 +60,8 @@ void loop() {
     Serial.print("Rotating knee to ");
     Serial.print(s);
     Serial.println(" degrees.");
-    rotate(s);
   }
+  rotate(s);
   Serial.print("Knee Encoder: ");
   Serial.print(encKnee);
   Serial.print("\t");
