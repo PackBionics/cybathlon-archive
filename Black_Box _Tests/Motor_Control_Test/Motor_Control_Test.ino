@@ -50,6 +50,25 @@ void setup() {
 
 #endif
   delay(1000);
+
+  // Message Explaining Test Parameters
+  Serial.write("This test applies to Black Box Test(s) 1,2,3 and 6 to 11");
+  Serial.write("\n");
+  Serial.write("The purpose of the test code is to move the leg to a desired angle from a zero degree starting point");
+  Serial.write("\n");
+  Serial.write("List of test parameter(s) and format: ");
+  Serial.write("\n");
+  Serial.write("Angle");
+  Serial.write("\n");
+  Serial.write("Angle: Desired angle to move to (deg)");
+  Serial.write("\n");
+  Serial.write("Angles are relative about the knee, maximum is ~115 deg and minimum is 0 deg, ex: leg straight is zero degrees");
+  Serial.write("\n");
+  Serial.write("What You Write In the Serial Monitor Example: ");
+  Serial.write("\n");
+  Serial.write("60");
+  Serial.write("\n");
+  Serial.write("The leg initiliazes at zero degrees (full extension) and then moves to 60 degrees");
 }
 
 void loop() {
