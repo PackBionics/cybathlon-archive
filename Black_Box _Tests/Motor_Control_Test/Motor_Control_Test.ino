@@ -15,6 +15,8 @@
 //#define EXTEND_LEG // this is used to extend the leg upon startup
 
 int s = encKnee;
+int tic = millis();
+int toc = millis();
 
 void setup() {
   // Initialize
@@ -23,7 +25,7 @@ void setup() {
   Init_Motors();
   //  Init_Button();
   Init_Interrupt();
-//  Init_Accelerometer();
+  //  Init_Accelerometer();
   Serial.begin(115200);
 
 #ifdef DEBUG_CONFIG
@@ -51,39 +53,36 @@ void setup() {
 #endif
   delay(1000);
 
-  // Message Explaining Test Parameters
-  Serial.write("This test applies to Black Box Test(s) 1,2,3 and 6 to 11");
-  Serial.write("\n");
-  Serial.write("The purpose of the test code is to move the leg to a desired angle from a zero degree starting point");
-  Serial.write("\n");
-  Serial.write("List of test parameter(s) and format: ");
-  Serial.write("\n");
-  Serial.write("Angle");
-  Serial.write("\n");
-  Serial.write("Angle: Desired angle to move to (deg)");
-  Serial.write("\n");
-  Serial.write("Angles are relative about the knee, maximum is ~115 deg and minimum is 0 deg, ex: leg straight is zero degrees");
-  Serial.write("\n");
-  Serial.write("What You Write In the Serial Monitor Example: ");
-  Serial.write("\n");
-  Serial.write("60");
-  Serial.write("\n");
-  Serial.write("The leg initiliazes at zero degrees (full extension) and then moves to 60 degrees");
+
 }
 
 void loop() {
   if (Serial.available() > 0) {
     s = Serial.parseInt();
     Serial.read();
-    Serial.println("________________________________________________________________________________");
+    // Message Explaining Test Parameters
+    Serial.println("__________________________________________________________________________________________________________________");
+    Serial.println("This test applies to Motor Black Box Test(s) 1,2,3 and 6 to 11");
+    Serial.println("The purpose of the test code is to move the leg to a desired angle from a zero degree starting point\n");
+    Serial.println("Parameter(s): ");
+    Serial.println("Angle: Desired angle to move to (deg)");
+    Serial.println("       Angles are relative about the knee, maximum is ~115 deg and minimum is 0 deg, ex: leg straight is 0 degrees\n");
+    Serial.println("What You Write In the Serial Monitor Example: ");
+    Serial.println("60");
+    Serial.println("The leg moves to 60 degrees");
+    Serial.println("__________________________________________________________________________________________________________________");
     Serial.print("Rotating knee to ");
     Serial.print(s);
     Serial.println(" degrees.");
   }
   rotate(s);
-  Serial.print("Knee Encoder: ");
-  Serial.print(encKnee);
-  Serial.print("\t");
-  Serial.print("CAM Encoder: ");
-  Serial.println(encCAM);
+  toc = millis();
+  if (toc - tic > 500) {
+    Serial.print("Knee Encoder: ");
+    Serial.print(encKnee);
+    Serial.print("\t");
+    Serial.print("CAM Encoder: ");
+    Serial.println(encCAM);
+    tic = millis();
+  }
 }
