@@ -21,19 +21,30 @@ void Init_Interrupt() {
  * Function to update sensor global variables
  */
 void Read_Sensors() {
-//  if (read_vel) {
-//    vel = 10 * encKnee
-//  }
   updated_sensors_motor = true;
-  encKnee = bitToDegrees(getPositionSPI(ENC_0, RES14));
-  encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
+  i2c_flag = true;
+}
+
+void Update_I2C() {
   lcFront = Read_LC1();
+//lcFront = loadcell1.read();
+//lcFront = loadcell1.read();
+//lcFront = loadcell1.read();
+//lcFront = loadcell1.read();
+
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();
+  sensors_event_t event; 
+  mma.getEvent(&event);
+  accX = -1.0 * event.acceleration.x;
+  accY = -1.0 * event.acceleration.y;
+  accZ = -1.0 * event.acceleration.z;
 //  accX = getX();
 //  accY = getY();
 //  accZ = getZ();
+  encKnee = bitToDegrees(getPositionSPI(ENC_0, RES14));
+  encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
   if (encKnee == MAX_RET_ANG) {
     fully_retracted = true;
     fully_extended = false;
@@ -45,8 +56,9 @@ void Read_Sensors() {
     fully_extended = false;
     fully_retracted = false;
   }
-
+  i2c_flag = false;
 }
+
 
 /**
  * Interrupt function

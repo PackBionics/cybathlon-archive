@@ -22,7 +22,7 @@ void setup() {
     Init_Motors();
 //  Init_Button();
     Init_Interrupt();
-//    Init_Accelerometer();
+    Init_Accelerometer();
 
 #ifdef DEBUG_CONFIG
 
@@ -51,30 +51,32 @@ void setup() {
 }
 
 void loop() {
-//  Serial.print("LC: ");
-//  Serial.print(loadcell1.read()/1000);
-//  Serial.println();
-//  Serial.print("Encoder 0: ");
-//  Serial.print(getPositionSPI(ENC_0, RES14), DEC);
-//  Serial.println();
-//  Serial.print("Encoder 1: ");
-//  Serial.print(getPositionSPI(ENC_1, RES14), DEC);
-//  Serial.println();
+  if (i2c_flag) {
+    Update_I2C();
+  }
+  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
+  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
+  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
+  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
+  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
+  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
+  Serial.println("m/s^2 ");
+  
 //  MasterFSM(curr_state);
 //    Serial.println(encKnee);
 //    rot(100);
 //    Serial.println(curr_speed);
-  Serial.print("Knee Angle: ");
-  Serial.print(encKnee);
-  Serial.print("\t Speed: ");
-  Serial.println(curr_speed);
-  int new_ang;
-  if (encKnee >= 90) {
-    new_ang = 20;
-  } else if (encKnee <= 30) {
-    new_ang = 110;
-  }
-  rotate(new_ang);
+//  Serial.print("Knee Angle: ");
+//  Serial.print(encKnee);
+//  Serial.print("\t Speed: ");
+//  Serial.println(curr_speed);
+//  int new_ang;
+//  if (encKnee >= 90) {
+//    new_ang = 20;
+//  } else if (encKnee <= 30) {
+//    new_ang = 110;
+//  }
+//  rotate(new_ang);
 
   
 }

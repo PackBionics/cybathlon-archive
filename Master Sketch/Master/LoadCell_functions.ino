@@ -78,26 +78,30 @@ void Calibrate_LC(HX711 loadcell)
  * Reads loadcell 1 (front) and updates global variable
  */
 int Read_LC1() {
-  return loadcell1.read();
+  int result = loadcell1.read();
+  return result == -1 ? lcFront : result;
 }
 
 /**
  * Reads loadcell 2 (back) and updates global variable
  */
 int Read_LC2() {
-  return loadcell1.read();
+  int result = loadcell1.read();
+  return result == -1 ? lcBack : result;
 }
 
 /**
  * Reads loadcell 3 (left) and updates global variable
  */
 int Read_LC3() {
-  return loadcell1.read();
+  int result = loadcell1.read();
+  return result == -1 ? lcLeft : result;
 }
 
 /**
  * Reads loadcell 4 (right) and updates global variable
  */
 int Read_LC4() {
-  return loadcell1.read();
+  int result = loadcell1.read();
+  return result == -1 ? lcRight : result;
 }
