@@ -63,9 +63,7 @@ void loop() {
   Serial.println("m/s^2 ");
 
   //  MasterFSM(curr_state);
-  //    Serial.println(encKnee);
-  //    rot(100);
-  //    Serial.println(curr_speed);
+
   //  Serial.print("Knee Angle: ");
   //  Serial.print(encKnee);
   //  Serial.print("\t Speed: ");
@@ -77,6 +75,4 @@ void loop() {
   //    new_ang = 110;
   //  }
   //  rotate(new_ang);
-
-
 }

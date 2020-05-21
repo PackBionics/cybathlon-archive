@@ -28,11 +28,6 @@ void Read_Sensors() {
 
 void Update_I2C() {
   lcFront = Read_LC1();
-//lcFront = loadcell1.read();
-//lcFront = loadcell1.read();
-//lcFront = loadcell1.read();
-//lcFront = loadcell1.read();
-
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();

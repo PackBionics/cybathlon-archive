@@ -1,4 +1,3 @@
-//read_vel = false;
 volatile bool i2c_flag = false;
 
 // Initializes the interrupt for timer 1
