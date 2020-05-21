@@ -21,6 +21,7 @@ void Init_Interrupt() {
  * Function to update sensor global variables
  */
 void Read_Sensors() {
+  button_state = digitalRead(LOCKED_BUTTON);
   updated_sensors_motor = true;
   i2c_flag = true;
 }

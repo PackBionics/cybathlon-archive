@@ -16,38 +16,38 @@
 
 
 void setup() {
-    // Initialize
-    Init_Encoders();
-    Init_LC();
-    Init_Motors();
-//  Init_Button();
-    Init_Interrupt();
-    Init_Accelerometer();
+  // Initialize
+  Init_Encoders();
+  Init_LC();
+  Init_Motors();
+  Init_Button();
+  Init_Interrupt();
+  Init_Accelerometer();
 
 #ifdef DEBUG_CONFIG
 
 #endif
 
 #ifdef CALIBRATION_CONFIG_LC
-    Calibrate_LC(loadcell1);
-    Calibrate_LC(loadcell2);
-    Calibrate_LC(loadcell3);
-    Calibrate_LC(loadcell4);
+  Calibrate_LC(loadcell1);
+  Calibrate_LC(loadcell2);
+  Calibrate_LC(loadcell3);
+  Calibrate_LC(loadcell4);
 #endif
 
 #ifdef CALIBRATION_CONFIG_ENCODER
-    // For calibrating encoders, we need to first
-    // make sure that they are initialized at full extension
-    // Then we set the encoders to 0
-    delayMicroseconds(50000);
-    setZeroSPI(ENC_0);
-    setZeroSPI(ENC_1);
+  // For calibrating encoders, we need to first
+  // make sure that they are initialized at full extension
+  // Then we set the encoders to 0
+  delayMicroseconds(50000);
+  setZeroSPI(ENC_0);
+  setZeroSPI(ENC_1);
 #endif
 
 #ifdef EXTEND_LEG
 
 #endif
-    delay(1000);
+  delay(1000);
 }
 
 void loop() {
@@ -61,22 +61,22 @@ void loop() {
   Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
   Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
   Serial.println("m/s^2 ");
-  
-//  MasterFSM(curr_state);
-//    Serial.println(encKnee);
-//    rot(100);
-//    Serial.println(curr_speed);
-//  Serial.print("Knee Angle: ");
-//  Serial.print(encKnee);
-//  Serial.print("\t Speed: ");
-//  Serial.println(curr_speed);
-//  int new_ang;
-//  if (encKnee >= 90) {
-//    new_ang = 20;
-//  } else if (encKnee <= 30) {
-//    new_ang = 110;
-//  }
-//  rotate(new_ang);
 
-  
+  //  MasterFSM(curr_state);
+  //    Serial.println(encKnee);
+  //    rot(100);
+  //    Serial.println(curr_speed);
+  //  Serial.print("Knee Angle: ");
+  //  Serial.print(encKnee);
+  //  Serial.print("\t Speed: ");
+  //  Serial.println(curr_speed);
+  //  int new_ang;
+  //  if (encKnee >= 90) {
+  //    new_ang = 20;
+  //  } else if (encKnee <= 30) {
+  //    new_ang = 110;
+  //  }
+  //  rotate(new_ang);
+
+
 }
