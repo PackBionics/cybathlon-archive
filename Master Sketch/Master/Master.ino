@@ -54,7 +54,11 @@ void loop() {
   if (i2c_flag) {
     Update_I2C();
   }
+  Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
   Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
+  Serial.print(lcBack); Serial.print("\t");  
+  Serial.print(lcLeft); Serial.print("\t");
+  Serial.print(lcRight); Serial.print("\t");
   Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
   Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
   Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");

@@ -13,8 +13,8 @@ void Init_Interrupt() {
 //  // enable timer compare interrupt
 //  TIMSK1 |= (1 << OCIE1A);
 
-  Timer1.initialize(50000);
-  Timer1.attachInterrupt(Read_Sensors, 50000);
+  Timer1.initialize(10000);
+  Timer1.attachInterrupt(Read_Sensors, 10000);
 }
 
 /**
