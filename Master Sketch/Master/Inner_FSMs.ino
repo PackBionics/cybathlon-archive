@@ -117,8 +117,9 @@ int GaitFSM() {
             Extend_Knee();
             if (lcBack > GAIT_SWING_EXT_END_TH) {
                 gait_curr_state = HEEL_OFF; // set it back to the first state for the next run of the Gait FSM
+                return 1;
             }
-            return 1;
+            return 0;
         default:
             return 0;
     }
