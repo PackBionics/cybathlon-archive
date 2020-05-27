@@ -7,7 +7,11 @@
 #define     LOADCELL_DOUT_PIN2  5
 #define     LOADCELL_DOUT_PIN3  6
 #define     LOADCELL_DOUT_PIN4  7
-#define     LOADCELL_SCK_PIN    8
+#define     LOADCELL_SCK_PIN1   8
+#define     LOADCELL_SCK_PIN2   21
+#define     LOADCELL_SCK_PIN3   22
+#define     LOADCELL_SCK_PIN4   20
+
 
 
 // 2. Adjustment settings
@@ -19,15 +23,15 @@ HX711 loadcell1; // front
 HX711 loadcell2; // back
 HX711 loadcell3; // left
 HX711 loadcell4; // right
-int lcFront;
-int lcBack;
-int lcLeft;
-int lcRight;
+long lcFront;
+long lcBack;
+long lcLeft;
+long lcRight;
 
 // Functions
 void Init_LC(void);
 void Calibrate_LC(HX711 loadcell);
-int Read_LC1(void);
-int Read_LC2(void);
-int Read_LC3(void);
-int Read_LC4(void);
+long Read_LC1(void);
+long Read_LC2(void);
+long Read_LC3(void);
+long Read_LC4(void);

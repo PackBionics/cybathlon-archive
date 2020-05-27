@@ -13,8 +13,8 @@ void Init_Interrupt() {
 //  // enable timer compare interrupt
 //  TIMSK1 |= (1 << OCIE1A);
 
-  Timer1.initialize(50000);
-  Timer1.attachInterrupt(Read_Sensors, 50000);
+  Timer1.initialize(10000);
+  Timer1.attachInterrupt(Read_Sensors, 10000);
 }
 
 /**
@@ -28,11 +28,6 @@ void Read_Sensors() {
 
 void Update_I2C() {
   lcFront = Read_LC1();
-//lcFront = loadcell1.read();
-//lcFront = loadcell1.read();
-//lcFront = loadcell1.read();
-//lcFront = loadcell1.read();
-
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();
