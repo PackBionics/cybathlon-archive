@@ -8,12 +8,13 @@
 #include "Inner_FSMs.h"
 #include "Accelerometer_functions.h"
 
+long tic;
+long toc;
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
 //#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
 //#define EXTEND_LEG // this is used to extend the leg upon startup
-
 
 void setup() {
   // Initialize
@@ -48,12 +49,17 @@ void setup() {
 
 #endif
   delay(1000);
+  tic = micros();
+  toc = micros();
 }
 
 void loop() {
   if (i2c_flag) {
     Update_I2C();
+    tic = micros()-toc;
+    toc = micros();
   }
+  Serial.print("Time: "); Serial.print(tic); Serial.print("\t");
   Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
   Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
   Serial.print(lcBack); Serial.print("\t");  

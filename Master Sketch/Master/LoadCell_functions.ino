@@ -79,38 +79,42 @@ void Calibrate_LC(HX711 loadcell)
  * Reads loadcell 1 (front) and updates global variable
  */
 long Read_LC1() {
-  long result = loadcell1.read();
+//  long result = loadcell1.read();
   // large random spikes in lc readings -- need to filter out spikes?
-  result = result == -1 ? lcFront : result;
-  return abs(result - lcFront) > 300000 ? lcFront : result;
+//  result = result == -1 ? lcFront : result;
+//  return abs(result - lcFront) > 300000 ? lcFront : result;
+  return loadcell1.is_ready() ? loadcell1.read() : lcFront;
 }
 
 /**
  * Reads loadcell 2 (back) and updates global variable
  */
 long Read_LC2() {
-  long result = loadcell2.read();
+//  long result = loadcell2.read();
   // large random spikes in lc readings -- need to filter out spikes?
-  result = result == -1 ? lcBack : result;
-  return abs(result - lcBack) > 300000 ? lcBack : result;
+//  result = result == -1 ? lcBack : result;
+//  return abs(result - lcBack) > 300000 ? lcBack : result;
+  return loadcell2.is_ready() ? loadcell2.read() : lcBack;
 }
 
 /**
  * Reads loadcell 3 (left) and updates global variable
  */
 long Read_LC3() {
-  long result = loadcell3.read();
+//  long result = loadcell3.read();
   // large random spikes in lc readings -- need to filter out spikes?
-  result = result == -1 ? lcLeft : result;
-  return abs(result - lcLeft) > 300000 ? lcLeft : result;
+//  result = result == -1 ? lcLeft : result;
+//  return abs(result - lcLeft) > 300000 ? lcLeft : result;
+  return loadcell3.is_ready() ? loadcell3.read() : lcLeft;
 }
 
 /**
  * Reads loadcell 4 (right) and updates global variable
  */
 long Read_LC4() {
-  long result = loadcell4.read();
+//  long result = loadcell4.read();
   // large random spikes in lc readings -- need to filter out spikes?
-  result = result == -1 ? lcRight : result;
-  return abs(result - lcRight) > 300000 ? lcRight : result;
+//  result = result == -1 ? lcRight : result;
+//  return abs(result - lcRight) > 300000 ? lcRight : result;
+  return loadcell4.is_ready() ? loadcell4.read() : lcRight;
 }
