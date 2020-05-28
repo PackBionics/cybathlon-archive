@@ -8,6 +8,16 @@
 #include "Inner_FSMs.h"
 #include "Accelerometer_functions.h"
 
+#include <string.h>
+#include <stdio.h>
+
+char seps[] = "=";
+char *token;
+int var;
+int input[2];
+char s[100];
+char *token2;
+
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
@@ -51,16 +61,83 @@ void setup() {
 }
 
 void loop() {
-  if (i2c_flag) {
-    Update_I2C();
+//  if (i2c_flag) { ## this kills the sensors
+//    Update_I2C();
+//  }
+//  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
+//  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
+//  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
+//  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
+//  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
+//  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
+//  Serial.println("m/s^2 ");
+
+
+  if (Serial.available() > 0) {
+    String string = Serial.readString();
+    string.toCharArray(s, 100);
+    token = strtok(s, seps);
+    token2 = strtok(NULL, seps);
+    sscanf(token2, "%d", &var);
+
+    if (strcmp(token, "lcBack")) {
+      lcBack = var;
+    } else if (strcmp(token, "lcFront")) {
+      lcFront = var;
+    } else if (strcmp(token, "lcLeft")) {
+      lcLeft = var;
+    } else if (strcmp(token, "lcRight")) {
+      lcRight = var;
+    } else if (strcmp(token, "button_state")) {
+      button_state = var;
+    } else if (strcmp(token, "encKnee")) {
+      encKnee = var;
+    } else if (strcmp(token, "encCAM")) {
+      encCAM = var;
+    } else if (strcmp(token, "accX")) {
+      accX = var;
+    } else if (strcmp(token, "accY")) {
+      accY = var;
+    } else if (strcmp(token, "accZ")) {
+      accZ = var;
+    } else if (strcmp(token, "reset")) { //May need to input reset= to serial monitor b/c of parsing
+      accZ = 0;
+      accY = -9.81;
+      accX = 0;
+      encCAM = 0;
+      encKnee = 0;
+      lcRight = 300;
+      lcLeft = 300;
+      lcBack = 300;
+      lcFront = 300;
+    }
+    Serial.print("The current state is: ");
+    Serial.println(curr_state);
+    Serial.print("lcFront = ");
+    Serial.println(lcFront);
+    Serial.print("lcBack = ");
+    Serial.println(lcBack);
+    Serial.print("lcLeft = ");
+    Serial.println(lcLeft);
+    Serial.print("lcRight = ");
+    Serial.println(lcRight);
+    Serial.print("encKnee = ");
+    Serial.println(encKnee);
+//    Serial.print("encCAM = ");
+//    Serial.println(encCAM);
+    Serial.print("accX = ");
+    Serial.println(accX);
+    Serial.print("accY = ");
+    Serial.println(accY);
+    Serial.print("accZ = ");
+    Serial.println(accZ);
+    Serial.print("button_state = ");
+    Serial.println(button_state);
+    Serial.println("______________________________________________________");
+    
   }
-  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
-  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
-  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
-  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
-  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
-  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
-  Serial.println("m/s^2 ");
+ 
+
 
   //  MasterFSM(curr_state);
   //    Serial.println(encKnee);
