@@ -21,11 +21,11 @@ int toc = millis();
 void setup() {
   // Initialize
   Init_Encoders();
-  Init_LC();
+//  Init_LC(); // Uncomment when using sensors
   Init_Motors();
-  //  Init_Button();
+  Init_Button();
   Init_Interrupt();
-  //  Init_Accelerometer();
+//  Init_Accelerometer(); // Uncomment when using sensors, and also uncomment accelerometer stuff in Sensor_Interrupt
   Serial.begin(115200);
 
 #ifdef DEBUG_CONFIG
@@ -57,6 +57,9 @@ void setup() {
 }
 
 void loop() {
+  if (i2c_flag) {
+    Update_I2C();
+  }
   if (Serial.available() > 0) {
     s = Serial.parseInt();
     Serial.read();

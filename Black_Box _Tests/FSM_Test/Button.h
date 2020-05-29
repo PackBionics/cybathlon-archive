@@ -3,4 +3,4 @@
 
 void Init_Button(void);
 
-volatile int button_state; // 1 is pressed, 0 is not pressed
+volatile int button_state = 1; // 1 is pressed, 0 is not pressed

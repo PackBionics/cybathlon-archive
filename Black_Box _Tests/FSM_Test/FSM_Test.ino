@@ -17,6 +17,7 @@ int var;
 int input[2];
 char s[100];
 char *token2;
+String state;
 
 
 //#define DEBUG_CONFIG // comment this line out to run full system
@@ -27,12 +28,12 @@ char *token2;
 
 void setup() {
   // Initialize
-  Init_Encoders();
-  Init_LC();
-  Init_Motors();
-  Init_Button();
-  Init_Interrupt();
-  Init_Accelerometer();
+//  Init_Encoders();
+//  Init_LC();
+//  Init_Motors();
+//  Init_Button();
+//  Init_Interrupt();
+//  Init_Accelerometer();
 
 #ifdef DEBUG_CONFIG
 
@@ -79,28 +80,27 @@ void loop() {
     token = strtok(s, seps);
     token2 = strtok(NULL, seps);
     sscanf(token2, "%d", &var);
-
-    if (strcmp(token, "lcBack")) {
+    if (strcmp(token, "lcBack") == 0) {
       lcBack = var;
-    } else if (strcmp(token, "lcFront")) {
+    } else if (strcmp(token, "lcFront") == 0) {
       lcFront = var;
-    } else if (strcmp(token, "lcLeft")) {
+    } else if (strcmp(token, "lcLeft") == 0) {
       lcLeft = var;
-    } else if (strcmp(token, "lcRight")) {
+    } else if (strcmp(token, "lcRight") == 0) {
       lcRight = var;
-    } else if (strcmp(token, "button_state")) {
+    } else if (strcmp(token, "button_state") == 0) {
       button_state = var;
-    } else if (strcmp(token, "encKnee")) {
+    } else if (strcmp(token, "encKnee") == 0) {
       encKnee = var;
-    } else if (strcmp(token, "encCAM")) {
+    } else if (strcmp(token, "encCAM") == 0) {
       encCAM = var;
-    } else if (strcmp(token, "accX")) {
+    } else if (strcmp(token, "accX") == 0) {
       accX = var;
-    } else if (strcmp(token, "accY")) {
+    } else if (strcmp(token, "accY") == 0) {
       accY = var;
-    } else if (strcmp(token, "accZ")) {
+    } else if (strcmp(token, "accZ") == 0) {
       accZ = var;
-    } else if (strcmp(token, "reset")) { //May need to input reset= to serial monitor b/c of parsing
+    } else if (strcmp(token, "reset") == 10 || strcmp(token, "reset") == 0) {
       accZ = 0;
       accY = -9.81;
       accX = 0;
@@ -111,8 +111,35 @@ void loop() {
       lcBack = 300;
       lcFront = 300;
     }
+
+    MasterFSM(curr_state);
+    
+    if (curr_state == LOCKED) {
+      state = "LOCKED";
+    } else if (curr_state == MIDSTANCE) {
+      state = "MIDSTANCE";
+    } else if (curr_state == SIT) {
+      state = "SIT";
+    } else if (curr_state == STAND) {
+      state = "STAND";
+    } else if (curr_state == GAIT) {
+      if (gait_curr_state == HEEL_OFF) {
+        state = "GAIT (HEEL_OFF)";
+      } else if (gait_curr_state == SWING_RET) {
+        state = "GAIT (SWING_RET)";
+      } else if (gait_curr_state == SWING_EXT) {
+        state = "GAIT (SWING_EXT)";
+      }
+    } else if (curr_state == H_STRIKE) {
+      state = "H_STRIKE";
+    } else if (curr_state == FULL_EXT) {
+      state = "FULL_EXT";
+    } else if (curr_state == RETRACTION) {
+      state = "RETRACTION";
+    }
+    
     Serial.print("The current state is: ");
-    Serial.println(curr_state);
+    Serial.println(state);
     Serial.print("lcFront = ");
     Serial.println(lcFront);
     Serial.print("lcBack = ");
@@ -137,7 +164,7 @@ void loop() {
     
   }
  
-
+  
 
   //  MasterFSM(curr_state);
   //    Serial.println(encKnee);
@@ -154,6 +181,5 @@ void loop() {
   //    new_ang = 110;
   //  }
   //  rotate(new_ang);
-
 
 }

@@ -18,14 +18,15 @@
 #define RES14           14
 
 /* SPI pins */
-#define ENC_0            2 // encoder at knee
-#define ENC_1            3 // encoder at the CAM
+#define ENC_0           9 // encoder at knee
+#define ENC_1           10 // encoder at the CAM
 #define SPI_MOSI        10
 #define SPI_MISO        11
 #define SPI_SCLK        9
 
 /* Encoder Value Maximum */
-#define ENC_MAX         16384
+#define ENC_MAX         360
+#define ENC_MAX_BITS    16384
 
 // global variables
 int encKnee;

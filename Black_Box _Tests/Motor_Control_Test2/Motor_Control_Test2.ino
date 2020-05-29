@@ -36,11 +36,11 @@ char s[100];
 void setup() {
   // Initialize
   Init_Encoders();
-  Init_LC();
+//  Init_LC(); // Uncomment when using sensors
   Init_Motors();
-  //  Init_Button();
+  Init_Button(); 
   Init_Interrupt();
-  //  Init_Accelerometer();
+  //  Init_Accelerometer(); // Uncomment when using sensors, and also uncomment accelerometer stuff in Sensor_Interrupt
   Serial.begin(115200);
   startTest = false;
 

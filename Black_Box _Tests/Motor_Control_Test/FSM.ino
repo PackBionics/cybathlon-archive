@@ -2,7 +2,7 @@
 //boolean retracted = false;
 
 /**
- * v1.0 of FSM Created on 01/21/20
+ * v1.1 of FSM Updated on 05/18/20
  * FSM contains the entire FSM of the Leg
  * @param init_state - the initial state that the FSM starts in; should be LOCKED
  * @return exit code - should only happen if fails (returns a 0 in this case)
@@ -34,7 +34,7 @@ void MasterFSM(MasterFSMState init_state) {
             }
             break;
         case STAND:
-            if ((encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
+            if (encKnee < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
                 current_state = MIDSTANCE;
             } else {
                 Stand();
@@ -45,20 +45,23 @@ void MasterFSM(MasterFSMState init_state) {
                 current_state = H_STRIKE;
             } else {
                 isGaitComplete = GaitFSM();
-                if (isGaitComplete == true)
+                if (isGaitComplete)
                     current_state = H_STRIKE;
             }
             break;
         case H_STRIKE:
-            if ((encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
+            if (encKnee < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
                 current_state = MIDSTANCE;
             } else {
                 Straighten_Leg();
             }
             break;
         case FULL_EXT:
-            if ((encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC && abs(lcFront - lcBack) < ZERO_ERROR_LC) {
+            if (encKnee < ZERO_ERROR_ENC && lcFront > FULLEXT_MIDSTANCE_LCFRONT_TH && lcBack > FULLEXT_MIDSTANCE_LCBACK_TH
+                && lcLeft > FULLEXT_MIDSTANCE_LCLEFT_TH && lcRight > FULLEXT_MIDSTANCE_LCRIGHT_TH) {
                 current_state = MIDSTANCE;
+            } else {
+                Straighten_Leg();
             }
             break;
         case RETRACTION:
@@ -72,7 +75,7 @@ void MasterFSM(MasterFSMState init_state) {
                 current_state = FULL_EXT;
                 retracted = false;
             } else if (lcBack > RETRACTION_H_STRIKE_LCBACK_TH && lcBack - lcFront > RETRACTION_H_STRIKE_LCBACKFRONT_TH
-                       && (encKnee +  ENC_MAX / 2) % ENC_MAX - ENC_MAX / 2 < ZERO_ERROR_ENC) {
+                       && encKnee < ZERO_ERROR_ENC) {
                 current_state = H_STRIKE;
                 retracted = false;
             }

@@ -1,7 +1,7 @@
 void Init_Accelerometer() {
   if (!mma.begin()) {
     Serial.println("Couldnt start");
-    while (!mma.begin());
+    while (1);
   }  
   if (mma.getRange() != 1) {
     mma.setRange(MMA8451_RANGE_2_G);
@@ -9,16 +9,13 @@ void Init_Accelerometer() {
 }
 
 double getX() {
-  mma.getEvent(&event);
   return event.acceleration.x;
 }
 
 double getY() {
-  mma.getEvent(&event);
   return event.acceleration.y;
 }
 
 double getZ() {
-  mma.getEvent(&event);
   return event.acceleration.z;
 }

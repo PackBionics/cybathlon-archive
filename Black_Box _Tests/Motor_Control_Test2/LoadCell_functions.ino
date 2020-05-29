@@ -2,25 +2,26 @@
 /**
  * Initialization of all loadcells
  */
-void Init_LC()
-{
-  loadcell1.begin(LOADCELL_DOUT_PIN1, LOADCELL_SCK_PIN);
+void Init_LC() {
+  loadcell1.begin(LOADCELL_DOUT_PIN1, LOADCELL_SCK_PIN1);
   loadcell1.set_scale(LOADCELL_DIVIDER);
   loadcell1.set_offset(LOADCELL_OFFSET);
   loadcell1.set_gain();
-//  loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN);
-//  loadcell2.set_scale(LOADCELL_DIVIDER);
-//  loadcell2.set_offset(LOADCELL_OFFSET);
-//  loadcell2.set_gain();
-//  loadcell3.begin(LOADCELL_DOUT_PIN3, LOADCELL_SCK_PIN);
-//  loadcell3.set_scale(LOADCELL_DIVIDER);
-//  loadcell3.set_offset(LOADCELL_OFFSET);
-//  loadcell3.set_gain();
-//  loadcell4.begin(LOADCELL_DOUT_PIN4, LOADCELL_SCK_PIN);
-//  loadcell4.set_scale(LOADCELL_DIVIDER);
-//  loadcell4.set_offset(LOADCELL_OFFSET);
-//  loadcell4.set_gain();
-  
+  delay(1000);
+  loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN2);
+  loadcell2.set_scale(LOADCELL_DIVIDER);
+  loadcell2.set_offset(LOADCELL_OFFSET);
+  loadcell2.set_gain();
+  delay(1000);
+  loadcell3.begin(LOADCELL_DOUT_PIN3, LOADCELL_SCK_PIN3);
+  loadcell3.set_scale(LOADCELL_DIVIDER);
+  loadcell3.set_offset(LOADCELL_OFFSET);
+  loadcell3.set_gain();
+  delay(1000);
+  loadcell4.begin(LOADCELL_DOUT_PIN4, LOADCELL_SCK_PIN4);
+  loadcell4.set_scale(LOADCELL_DIVIDER);
+  loadcell4.set_offset(LOADCELL_OFFSET);
+  loadcell4.set_gain(); 
 }
 
 /**
@@ -77,27 +78,43 @@ void Calibrate_LC(HX711 loadcell)
 /**
  * Reads loadcell 1 (front) and updates global variable
  */
-int Read_LC1() {
-  return loadcell1.read();
+long Read_LC1() {
+//  long result = loadcell1.read();
+  // large random spikes in lc readings -- need to filter out spikes?
+//  result = result == -1 ? lcFront : result;
+//  return abs(result - lcFront) > 300000 ? lcFront : result;
+  return loadcell1.is_ready() ? loadcell1.read() : lcFront;
 }
 
 /**
  * Reads loadcell 2 (back) and updates global variable
  */
-int Read_LC2() {
-  return loadcell1.read();
+long Read_LC2() {
+//  long result = loadcell2.read();
+  // large random spikes in lc readings -- need to filter out spikes?
+//  result = result == -1 ? lcBack : result;
+//  return abs(result - lcBack) > 300000 ? lcBack : result;
+  return loadcell2.is_ready() ? loadcell2.read() : lcBack;
 }
 
 /**
  * Reads loadcell 3 (left) and updates global variable
  */
-int Read_LC3() {
-  return loadcell1.read();
+long Read_LC3() {
+//  long result = loadcell3.read();
+  // large random spikes in lc readings -- need to filter out spikes?
+//  result = result == -1 ? lcLeft : result;
+//  return abs(result - lcLeft) > 300000 ? lcLeft : result;
+  return loadcell3.is_ready() ? loadcell3.read() : lcLeft;
 }
 
 /**
  * Reads loadcell 4 (right) and updates global variable
  */
-int Read_LC4() {
-  return loadcell1.read();
+long Read_LC4() {
+//  long result = loadcell4.read();
+  // large random spikes in lc readings -- need to filter out spikes?
+//  result = result == -1 ? lcRight : result;
+//  return abs(result - lcRight) > 300000 ? lcRight : result;
+  return loadcell4.is_ready() ? loadcell4.read() : lcRight;
 }

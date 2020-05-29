@@ -10,6 +10,10 @@
 #define RETRACTION_FULL_EXT_LCRIGHT_TH 400 // threshold for determining RETRACTION to FULL_EXT State right loadcell load
 #define RETRACTION_H_STRIKE_LCBACK_TH 400 // threshold for determining RETRACTION to H_STRIKE State for back loadcell load
 #define RETRACTION_H_STRIKE_LCBACKFRONT_TH 400 // threshold for determining RETRACTION to H_STRIKE State for back loadcell and front loadcell difference
+#define FULLEXT_MIDSTANCE_LCFRONT_TH 400 // threshold for determining sufficient load for front loadcell for Full Extension to Midstance transition
+#define FULLEXT_MIDSTANCE_LCBACK_TH 400 // threshold for determining sufficient load for back loadcell for Full Extension to Midstance transition
+#define FULLEXT_MIDSTANCE_LCRIGHT_TH 400 // threshold for determining sufficient load for right loadcell for Full Extension to Midstance transition
+#define FULLEXT_MIDSTANCE_LCLEFT_TH 400 // threshold for determining sufficient load for left loadcell for Full Extension to Midstance transition
 
 #define ZERO_ERROR_LC 50 // error for how close to 0 LCs are to be deemed "0" force
 #define ZERO_ERROR_ENC 1 // error for how close to 0 encoders are to be deemed "0"

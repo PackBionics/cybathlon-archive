@@ -12,7 +12,7 @@
 #define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
 #define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
 #define MIN_SSPEED    30                // minimum starting/end speed
-#define ACC_CONST     2                 // default for acc_const
+#define ACC_CONST     4                 // default for acc_const
 #define RMP_DWN_CONST 0.2               // default ramp_down_const
 
 
@@ -24,7 +24,7 @@ int init_ang = 0;                       // global variable for initial angle at 
 float a;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
 float b;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
 float c;                                // part of quadratic used for determining speed of motor (initialized at beginning of movement)
-bool updated_sensors_motor = false;     // boolean for determining whether the sensors have been updated since last call of motor function
+volatile bool updated_sensors_motor = false;     // boolean for determining whether the sensors have been updated since last call of motor function
 double acc_const = ACC_CONST;           // constant used for determining 3rd point in quadratic equation used for determining speed
 double ramp_down_const = RMP_DWN_CONST; // constant used for determining how fast the motor ramps down when reversing from previous movement
 
