@@ -15,8 +15,14 @@
 
 
 // 2. Adjustment settings
-#define     LOADCELL_OFFSET     0
-#define     LOADCELL_DIVIDER    5895655000
+#define     LOADCELL_OFFSET1   0
+#define     LOADCELL_DIVIDER1  1000
+#define     LOADCELL_OFFSET2   0
+#define     LOADCELL_DIVIDER2  1000
+#define     LOADCELL_OFFSET3   0
+#define     LOADCELL_DIVIDER3  1000
+#define     LOADCELL_OFFSET4   0
+#define     LOADCELL_DIVIDER4  1000
 
 // Declarations for loadcells
 HX711 loadcell1; // front

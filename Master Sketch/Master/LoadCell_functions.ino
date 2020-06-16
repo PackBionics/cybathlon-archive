@@ -4,23 +4,23 @@
  */
 void Init_LC() {
   loadcell1.begin(LOADCELL_DOUT_PIN1, LOADCELL_SCK_PIN1);
-  loadcell1.set_scale(LOADCELL_DIVIDER);
-  loadcell1.set_offset(LOADCELL_OFFSET);
+  loadcell1.set_scale(LOADCELL_DIVIDER1);
+  loadcell1.set_offset(LOADCELL_OFFSET1);
   loadcell1.set_gain();
   delay(1000);
   loadcell2.begin(LOADCELL_DOUT_PIN2, LOADCELL_SCK_PIN2);
-  loadcell2.set_scale(LOADCELL_DIVIDER);
-  loadcell2.set_offset(LOADCELL_OFFSET);
+  loadcell2.set_scale(LOADCELL_DIVIDER2);
+  loadcell2.set_offset(LOADCELL_OFFSET2);
   loadcell2.set_gain();
   delay(1000);
   loadcell3.begin(LOADCELL_DOUT_PIN3, LOADCELL_SCK_PIN3);
-  loadcell3.set_scale(LOADCELL_DIVIDER);
-  loadcell3.set_offset(LOADCELL_OFFSET);
+  loadcell3.set_scale(LOADCELL_DIVIDER3);
+  loadcell3.set_offset(LOADCELL_OFFSET3);
   loadcell3.set_gain();
   delay(1000);
   loadcell4.begin(LOADCELL_DOUT_PIN4, LOADCELL_SCK_PIN4);
-  loadcell4.set_scale(LOADCELL_DIVIDER);
-  loadcell4.set_offset(LOADCELL_OFFSET);
+  loadcell4.set_scale(LOADCELL_DIVIDER4);
+  loadcell4.set_offset(LOADCELL_OFFSET4);
   loadcell4.set_gain(); 
 }
 
@@ -50,7 +50,7 @@ void Calibrate_LC(HX711 loadcell)
   Serial.print("Zero factor: "); //This can be used to remove the need to tare the scale. Useful in permanent scale projects.
   Serial.println(zero_factor);
 
-  float calibration_factor = LOADCELL_DIVIDER;
+  float calibration_factor = LOADCELL_DIVIDER1;
   while(1) {
     loadcell.set_scale(calibration_factor); //Adjust to this calibration factor
 

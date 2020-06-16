@@ -74,10 +74,14 @@ void loop() {
 
   //  MasterFSM(curr_state);
 
-  //  Serial.print("Knee Angle: ");
-  //  Serial.print(encKnee);
-  //  Serial.print("\t Speed: ");
-  //  Serial.println(curr_speed);
+//  rotate(60);
+//
+//  Serial.print("Knee Angle: ");
+//  Serial.print(encKnee);
+//  Serial.print("\tCAM Angle: ");
+//  Serial.print(encCAM);
+//  Serial.print("\t Speed: ");
+//  Serial.println(curr_speed);
   //  int new_ang;
   //  if (encKnee >= 90) {
   //    new_ang = 20;
