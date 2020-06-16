@@ -8,21 +8,21 @@
 #define     LOADCELL_DOUT_PIN3  6
 #define     LOADCELL_DOUT_PIN4  7
 #define     LOADCELL_SCK_PIN1   8
-#define     LOADCELL_SCK_PIN2   21
-#define     LOADCELL_SCK_PIN3   22
-#define     LOADCELL_SCK_PIN4   20
+#define     LOADCELL_SCK_PIN2   20
+#define     LOADCELL_SCK_PIN3   21
+#define     LOADCELL_SCK_PIN4   22
 
 
 
 // 2. Adjustment settings
-#define     LOADCELL_OFFSET1   0
-#define     LOADCELL_DIVIDER1  1000
-#define     LOADCELL_OFFSET2   0
-#define     LOADCELL_DIVIDER2  1000
-#define     LOADCELL_OFFSET3   0
-#define     LOADCELL_DIVIDER3  1000
-#define     LOADCELL_OFFSET4   0
-#define     LOADCELL_DIVIDER4  1000
+#define     LOADCELL_OFFSET1   1.631336256
+#define     LOADCELL_DIVIDER1  7952.9
+#define     LOADCELL_OFFSET2   8.066430817
+#define     LOADCELL_DIVIDER2  8441.8
+#define     LOADCELL_OFFSET3   5.344611733
+#define     LOADCELL_DIVIDER3  7986
+#define     LOADCELL_OFFSET4   4.810347797
+#define     LOADCELL_DIVIDER4  8219.8
 
 // Declarations for loadcells
 HX711 loadcell1; // front
