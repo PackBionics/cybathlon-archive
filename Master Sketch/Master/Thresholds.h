@@ -2,7 +2,7 @@
 #define MIDSTANCE_SIT_TH 400 // threshold for determining to go from MIDSTANCE to SIT State (uses heel loading)
 #define MIDSTANCE_GAIT_TOE_TH 400 // threshold for determining MIDSTANCE to GAIT State (uses toe loading)
 #define MIDSTANCE_GAIT_HEEL_TH 0 // threshold for determining MIDSTANCE to GAIT State (uses zero heel loading)
-#define SIT_STAND_TH 400 // threshold for determining SIT to STAND State (uses heel loading)
+#define SIT_STAND_TH 800 // threshold for determining SIT to STAND State (uses heel loading)
 #define GAIT_H_STRIKE_TH 400 // threshold for determining GAIT to H_STRIKE State (uses heel loading)
 #define RETRACTION_FULL_EXT_LCFRONT_TH 400 // threshold for determining RETRACTION to FULL_EXT State front loadcell load
 #define RETRACTION_FULL_EXT_LCBACK_TH 400 // threshold for determining RETRACTION to FULL_EXT State back loadcell load
