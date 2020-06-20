@@ -95,9 +95,15 @@ void Free_Swing() {
     }
 }
 
+
+
 /**
  * TODO: This function will ensure the cam is at the correct angle with the knee in order to keep the cables in tension as the leg extends
  */
  void cableTension() {
+    
+ }
 
+ int enc_conversion() {
+  return enc_conversion[encCAM + 18]
  }
