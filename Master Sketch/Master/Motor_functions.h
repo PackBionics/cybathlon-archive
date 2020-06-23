@@ -28,6 +28,11 @@ volatile bool updated_sensors_motor = false;     // boolean for determining whet
 double acc_const = ACC_CONST;           // constant used for determining 3rd point in quadratic equation used for determining speed
 double ramp_down_const = RMP_DWN_CONST; // constant used for determining how fast the motor ramps down when reversing from previous movement
 
+int enc_conversion[141] = {0,1,3,4,5,7,8,9,11,12,14,15,17,18,19,21,22,24,25,26,28,29,30,32,33,34,36,37,38,40,41,43,43,45,46,48,48,50,51,52,54,55,56,57,58,59,
+61,62,63,64,64,66,67,68,69,70,71,71,73,74,75,76,76,77,78,79,80,81,81,82,83,84,85,85,86,86,87,88,89,89,90,91,91,92,92,93,94,94,95,95,96,96,97,97,98,98,99,99,
+100,100,101,101,102,102,103,103,103,104,104,105,105,105,106,106,107,107,107,108,108,108,109,109,109,110,110,110,111,111,111,112,112,112,113,113,113,114,114,
+114,114,114,115};
+
 // functions
 void Init_Motors(void);
 void calcParabConsts(void);
@@ -36,3 +41,5 @@ void rotate(int angle);
 void Free_Swing(void);
 // Function to keep the cables in tension
 void cableTension(void);
+// gets the corresponding knee angle given the current CAM angle
+int enc_converstion(void);
