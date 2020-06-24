@@ -5,20 +5,20 @@ void Sit() {  // TODO: change how speed is changed to be more dynamic
     double scalar = accX;
     double scalarGs = scalar / 9.81;
     if (scalar > SIT_X_TH_POS) { // shin pointing down
-        acc_const-= scalarGs;
-        acc_const = acc_const > 1 ? acc_const : 1;
-        ramp_down_const -= 0.1 * scalarGs;
-        ramp_down_const = ramp_down_const > 0.1 ? ramp_down_const : 0.1;
-        ramp_down_const = ramp_down_const < 0.9 ? ramp_down_const : 0.9;
-        calcParabConsts();
+        acc_const[0] -= scalarGs;
+        acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
+        ramp_down_const[0] -= 0.1 * scalarGs;
+        ramp_down_const[0] = ramp_down_const[0] > 0.1 ? ramp_down_const[0] : 0.1;
+        ramp_down_const[0] = ramp_down_const[0] < 0.9 ? ramp_down_const[0] : 0.9;
+        calcParabConsts(0);
         rotate(SIT_ANG);
     } else if (scalar < SIT_X_TH_NEG) { // Shin pointing up
-        acc_const += scalarGs;
-        acc_const = acc_const > 1 ? acc_const : 1;
-        ramp_down_const += 0.1 * scalarGs;
-        ramp_down_const = ramp_down_const > 0.1 ? ramp_down_const : 0.1;
-        ramp_down_const = ramp_down_const < 0.9 ? ramp_down_const : 0.9;
-        calcParabConsts();
+        acc_const[0] += scalarGs;
+        acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
+        ramp_down_const[0] += 0.1 * scalarGs;
+        ramp_down_const[0] = ramp_down_const[0] > 0.1 ? ramp_down_const[0] : 0.1;
+        ramp_down_const[0] = ramp_down_const[0] < 0.9 ? ramp_down_const[0] : 0.9;
+        calcParabConsts(0);
         rotate(SIT_ANG);
     }
 }
@@ -30,20 +30,20 @@ void Stand() {
     double scalar = accX;
     double scalarGs = scalar / 9.81;
     if (scalar > STAND_X_TH_POS) { // Shin Pointing down
-        acc_const += scalarGs;
-        acc_const = acc_const > 1 ? acc_const : 1;
-        ramp_down_const += 0.1 * scalarGs;
-        ramp_down_const = ramp_down_const > 0.1 ? ramp_down_const : 0.1;
-        ramp_down_const = ramp_down_const < 0.9 ? ramp_down_const : 0.9;
-        calcParabConsts();
+        acc_const[0] += scalarGs;
+        acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
+        ramp_down_const[0] += 0.1 * scalarGs;
+        ramp_down_const[0] = ramp_down_const[0] > 0.1 ? ramp_down_const[0] : 0.1;
+        ramp_down_const[0] = ramp_down_const[0] < 0.9 ? ramp_down_const[0] : 0.9;
+        calcParabConsts(0);
         rotate(MAX_EXT_ANG);
     } else if (scalar < STAND_X_TH_NEG) { // Shin Pointing up
-        acc_const -= scalarGs;
-        acc_const = acc_const > 1 ? acc_const : 1;
-        ramp_down_const -= 0.1 * scalarGs;
-        ramp_down_const = ramp_down_const > 0.1 ? ramp_down_const : 0.1;
-        ramp_down_const = ramp_down_const < 0.9 ? ramp_down_const : 0.9;
-        calcParabConsts();
+        acc_const[0] -= scalarGs;
+        acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
+        ramp_down_const[0] -= 0.1 * scalarGs;
+        ramp_down_const[0] = ramp_down_const[0] > 0.1 ? ramp_down_const[0] : 0.1;
+        ramp_down_const[0] = ramp_down_const[0] < 0.9 ? ramp_down_const[0] : 0.9;
+        calcParabConsts(0);
         rotate(MAX_EXT_ANG);
     }
 }
@@ -55,20 +55,20 @@ void Straighten_Leg() {
     double scalar = accX;
     double scalarGs = scalar / 9.81;
     if (scalar > STRAIGHT_X_TH_POS) {  // Shin Pointing down
-        acc_const += scalarGs;
-        acc_const = acc_const > 1 ? acc_const : 1;
-        ramp_down_const += 0.1 * scalarGs;
-        ramp_down_const = ramp_down_const > 0.1 ? ramp_down_const : 0.1;
-        ramp_down_const = ramp_down_const < 0.9 ? ramp_down_const : 0.9;
-        calcParabConsts();
+        acc_const[0] += scalarGs;
+        acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
+        ramp_down_const[0] += 0.1 * scalarGs;
+        ramp_down_const[0] = ramp_down_const[0] > 0.1 ? ramp_down_const[0] : 0.1;
+        ramp_down_const[0] = ramp_down_const[0] < 0.9 ? ramp_down_const[0] : 0.9;
+        calcParabConsts(0);
         rotate(MAX_EXT_ANG);
     } else if (scalar < STRAIGHT_X_TH_NEG) {  // Shin Pointing up
-        acc_const -= scalarGs;
-        acc_const = acc_const > 1 ? acc_const : 1;
-        ramp_down_const -= 0.1 * scalarGs;
-        ramp_down_const = ramp_down_const > 0.1 ? ramp_down_const : 0.1;
-        ramp_down_const = ramp_down_const < 0.9 ? ramp_down_const : 0.9;
-        calcParabConsts();
+        acc_const[0] -= scalarGs;
+        acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
+        ramp_down_const[0] -= 0.1 * scalarGs;
+        ramp_down_const[0] = ramp_down_const[0] > 0.1 ? ramp_down_const[0] : 0.1;
+        ramp_down_const[0] = ramp_down_const[0] < 0.9 ? ramp_down_const[0] : 0.9;
+        calcParabConsts(0);
         rotate(MAX_EXT_ANG);
     }
 }
@@ -109,13 +109,13 @@ int GaitFSM() {
             return 0;
         case SWING_RET:
             Retract_Knee();
-             if (accX > GAIT_SWING_RET_SWING_EXT_TH) { // TODO: Alex Kyu commented this back in, is this suppose to be here?
-                 gait_curr_state = SWING_EXT; // TODO
-             } // TODO
+             if (accX > GAIT_SWING_RET_SWING_EXT_TH) { // TODO: add free swing implementation
+                 gait_curr_state = SWING_EXT;
+             }
             return 0;
         case SWING_EXT:
             Extend_Knee();
-            if (lcBack > GAIT_SWING_EXT_END_TH) {
+            if (lcBack > GAIT_SWING_EXT_END_TH) { // TODO: add other loadcells
                 gait_curr_state = HEEL_OFF; // set it back to the first state for the next run of the Gait FSM
                 return 1;
             }

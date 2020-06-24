@@ -22,7 +22,7 @@ void Straighten_Leg(void);
 // Function that monitors speed of retracting of the leg motion
 void Retract(void);
 // Function that manages the gait cycle through an FSM
-int GaitFSM();
+int GaitFSM(void);
 
 
 /****************************************************************
