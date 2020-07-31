@@ -7,10 +7,10 @@
 #define     LOADCELL_DOUT_PIN2  5
 #define     LOADCELL_DOUT_PIN3  6
 #define     LOADCELL_DOUT_PIN4  7
-#define     LOADCELL_SCK_PIN1   8
-#define     LOADCELL_SCK_PIN2   20
-#define     LOADCELL_SCK_PIN3   21
-#define     LOADCELL_SCK_PIN4   22
+#define     LOADCELL_SCK_PIN1   22
+#define     LOADCELL_SCK_PIN2   21
+#define     LOADCELL_SCK_PIN3   8
+#define     LOADCELL_SCK_PIN4   20
 
 
 
