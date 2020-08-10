@@ -10,6 +10,7 @@
 
 long tic;
 long toc;
+//int init_cam = -1000;
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
@@ -42,7 +43,8 @@ void setup() {
   // Then we set the encoders to 0
   delayMicroseconds(50000);
   setZeroSPI(ENC_0);
-  setZeroSPI(ENC_1);
+//  setZeroSPI(ENC_1);
+  auto_cal_enc();
 #endif
 
 #ifdef EXTEND_LEG
@@ -51,6 +53,7 @@ void setup() {
   delay(1000);
   tic = micros();
   toc = micros();
+  delay(3000);
 }
 
 void loop() {
@@ -59,34 +62,47 @@ void loop() {
     tic = micros()-toc;
     toc = micros();
   }
-  Serial.print("Time: "); Serial.print(tic); Serial.print("\t");
-  Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
-  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
-  Serial.print(lcBack); Serial.print("\t");  
-  Serial.print(lcLeft); Serial.print("\t");
-  Serial.print(lcRight); Serial.print("\t");
-  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
-  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
-  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
-  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
-  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
-  Serial.println("m/s^2 ");
+//  Serial.print("Time: "); Serial.print(tic); Serial.print("\t");
+//  Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
+//  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
+//  Serial.print(lcBack); Serial.print("\t");  
+//  Serial.print(lcLeft); Serial.print("\t");
+//  Serial.print(lcRight); Serial.print("\t");
+//  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
+//  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
+//  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
+//  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
+//  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
+//  Serial.println("m/s^2 ");
 
   //  MasterFSM(curr_state);
 
-//  rotate(60);
+//  rotate_helper(115, 0);
+//  if (encCAM != init_cam) {
+//    Serial.print(encCAM);
+//    Serial.print("\t");
+//    Serial.print(encKnee);
+//    Serial.println(",");
+//    init_cam = encCAM;
+//  }
+  
+//  rotate_helper(0, 0);
 //
-//  Serial.print("Knee Angle: ");
-//  Serial.print(encKnee);
-//  Serial.print("\tCAM Angle: ");
-//  Serial.print(encCAM);
-//  Serial.print("\t Speed: ");
-//  Serial.println(curr_speed);
-  //  int new_ang;
-  //  if (encKnee >= 90) {
-  //    new_ang = 20;
-  //  } else if (encKnee <= 30) {
-  //    new_ang = 110;
-  //  }
-  //  rotate(new_ang);
+  Serial.print("Knee Angle: ");
+  Serial.print(encKnee);
+  Serial.print("\tCAM Angle: ");
+  Serial.print(encCAM);
+  Serial.print("\tExpected Angle: ");
+  Serial.print(enc_convert());
+  Serial.print("\t Speed: ");
+  Serial.print(curr_speed[0]);
+  Serial.print("\t");
+  Serial.println(curr_speed[1]);
+    int new_ang;
+    if (encKnee >= 50) {
+      new_ang = 0;
+    } else if (encKnee <= 5) {
+      new_ang = 70;
+    }
+    rotate_helper(new_ang, 0);
 }
