@@ -14,7 +14,8 @@ long toc;
 
 //#define DEBUG_CONFIG // comment this line out to run full system
 //#define CALIBRATION_CONFIG_LC // comment this line out to run full system
-//#define CALIBRATION_CONFIG_ENCODER // comment this line out to run full system
+//#define CALIBRATION_CONFIG_ENCODER_KNEE // comment this line out to run full system
+//#define CALIBRATION_CONFIG_ENCODER_CAM // comment this line out to run full system
 //#define EXTEND_LEG // this is used to extend the leg upon startup
 
 void setup() {
@@ -37,13 +38,19 @@ void setup() {
   Calibrate_LC(loadcell4);
 #endif
 
-#ifdef CALIBRATION_CONFIG_ENCODER
+#ifdef CALIBRATION_CONFIG_ENCODER_KNEE
   // For calibrating encoders, we need to first
   // make sure that they are initialized at full extension
   // Then we set the encoders to 0
   delayMicroseconds(50000);
   setZeroSPI(ENC_0);
-//  setZeroSPI(ENC_1);
+#endif
+
+#ifdef CALIBRATION_CONFIG_ENCODER_CAM
+  // For calibrating encoders, we need to first
+  // make sure that they are initialized at full extension
+  // Then we set the encoders to 0
+  delayMicroseconds(50000);
   auto_cal_enc();
 #endif
 
@@ -85,9 +92,10 @@ void loop() {
 //    Serial.println(",");
 //    init_cam = encCAM;
 //  }
-  
-//  rotate_helper(0, 0);
-//
+//  
+//  rotate(70);
+//  rotate_helper(40, 0);
+
   Serial.print("Knee Angle: ");
   Serial.print(encKnee);
   Serial.print("\tCAM Angle: ");
@@ -97,12 +105,14 @@ void loop() {
   Serial.print("\t Speed: ");
   Serial.print(curr_speed[0]);
   Serial.print("\t");
-  Serial.println(curr_speed[1]);
+  Serial.print(curr_speed[1]);
+  Serial.print("\t");
+  Serial.println(curr_dir[0]);
     int new_ang;
-    if (encKnee >= 50) {
-      new_ang = 0;
-    } else if (encKnee <= 5) {
-      new_ang = 70;
+    if (encKnee >= 80) {
+      new_ang = 10;
+    } else if (encKnee <= 20) {
+      new_ang = 90;
     }
-    rotate_helper(new_ang, 0);
+    rotate(new_ang);
 }

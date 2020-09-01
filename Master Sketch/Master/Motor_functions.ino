@@ -121,7 +121,7 @@ int enc_convert() {
  */
 void rotate(int angle) {
   int required_angle = enc_convert();
-  if (abs(required_angle - encKnee) > RANGE_STOP) {  //TODO: use encCAM to compare against?
+  if (abs(required_angle - encCAM) > RANGE_STOP_CAM) {  //TODO: use encCAM to compare against?
     rotate_helper(required_angle, 1); // rotate for fixing the CAM position
   } else {
     rotate_helper(angle, 0);  // regular rotate
@@ -146,14 +146,31 @@ void Free_Swing() {
  * 5.  waits for user input to continue with the program
  */
 void auto_cal_enc() {
-  rotate_helper(-2, 0);
+  if (i2c_flag) {
+    Update_I2C();
+  }
+  while (encKnee != 0) {
+    if (i2c_flag) {
+      Update_I2C();
+    }
+    Serial.println(encKnee);
+    rotate_helper(-2, 0);
+  }
   setZeroSPI(ENC_1);
   delay(1000);
   int init_knee = -1000;
   do {
+//    Serial.println("h4");
+    if (i2c_flag) {
+//      Serial.println("h5");
+      Update_I2C();
+//      tic = micros()-toc;
+//      toc = micros();
+    }
     analogWrite(PWM, 30);
     digitalWrite(DIR, MTR_BACKWARD);
     if (encKnee != init_knee) {
+//      Serial.println("h6");
       Serial.print(encKnee);
       Serial.print("\t");
       Serial.print(encCAM);
