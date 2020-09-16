@@ -69,12 +69,13 @@ void loop() {
     tic = micros()-toc;
     toc = micros();
   }
-//  Serial.print("Time: "); Serial.print(tic); Serial.print("\t");
+  Serial.print("Time: "); Serial.print(tic); Serial.print("\t");
 //  Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
-//  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
-//  Serial.print(lcBack); Serial.print("\t");  
-//  Serial.print(lcLeft); Serial.print("\t");
-//  Serial.print(lcRight); Serial.print("\t");
+  Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
+  Serial.print(lcBack); Serial.print("\t");  
+  Serial.print(lcLeft); Serial.print("\t");
+  Serial.print(lcRight); Serial.print("\t");
+  Serial.println();
 //  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
 //  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
 //  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
@@ -96,23 +97,23 @@ void loop() {
 //  rotate(70);
 //  rotate_helper(40, 0);
 
-  Serial.print("Knee Angle: ");
-  Serial.print(encKnee);
-  Serial.print("\tCAM Angle: ");
-  Serial.print(encCAM);
-  Serial.print("\tExpected Angle: ");
-  Serial.print(enc_convert());
-  Serial.print("\t Speed: ");
-  Serial.print(curr_speed[0]);
-  Serial.print("\t");
-  Serial.print(curr_speed[1]);
-  Serial.print("\t");
-  Serial.println(curr_dir[0]);
-    int new_ang;
-    if (encKnee >= 80) {
-      new_ang = 10;
-    } else if (encKnee <= 20) {
-      new_ang = 90;
-    }
-    rotate(new_ang);
+//  Serial.print("Knee Angle: ");
+//  Serial.print(encKnee);
+//  Serial.print("\tCAM Angle: ");
+//  Serial.print(encCAM);
+//  Serial.print("\tExpected Angle: ");
+//  Serial.print(enc_convert());
+//  Serial.print("\t Speed: ");
+//  Serial.print(curr_speed[0]);
+//  Serial.print("\t");
+//  Serial.print(curr_speed[1]);
+//  Serial.print("\t");
+//  Serial.println(curr_dir[0]);
+//    int new_ang;
+//    if (encKnee >= 80) {
+//      new_ang = 10;
+//    } else if (encKnee <= 20) {
+//      new_ang = 90;
+//    }
+//    rotate(new_ang);
 }
