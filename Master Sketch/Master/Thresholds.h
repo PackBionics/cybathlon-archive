@@ -1,19 +1,19 @@
 // Thresholds for main FSM
-#define MIDSTANCE_SIT_TH 400 // threshold for determining to go from MIDSTANCE to SIT State (uses heel loading)
-#define MIDSTANCE_GAIT_TOE_TH 400 // threshold for determining MIDSTANCE to GAIT State (uses toe loading)
+#define MIDSTANCE_SIT_TH 70 // threshold for determining to go from MIDSTANCE to SIT State (uses heel loading)
+#define MIDSTANCE_GAIT_TOE_TH 50 // threshold for determining MIDSTANCE to GAIT State (uses toe loading)
 #define MIDSTANCE_GAIT_HEEL_TH 0 // threshold for determining MIDSTANCE to GAIT State (uses zero heel loading)
-#define SIT_STAND_TH 800 // threshold for determining SIT to STAND State (uses heel loading)
-#define GAIT_H_STRIKE_TH 400 // threshold for determining GAIT to H_STRIKE State (uses heel loading)
-#define RETRACTION_FULL_EXT_LCFRONT_TH 400 // threshold for determining RETRACTION to FULL_EXT State front loadcell load
-#define RETRACTION_FULL_EXT_LCBACK_TH 400 // threshold for determining RETRACTION to FULL_EXT State back loadcell load
-#define RETRACTION_FULL_EXT_LCLEFT_TH 400 // threshold for determining RETRACTION to FULL_EXT State left loadcell load
-#define RETRACTION_FULL_EXT_LCRIGHT_TH 400 // threshold for determining RETRACTION to FULL_EXT State right loadcell load
-#define RETRACTION_H_STRIKE_LCBACK_TH 400 // threshold for determining RETRACTION to H_STRIKE State for back loadcell load
-#define RETRACTION_H_STRIKE_LCBACKFRONT_TH 400 // threshold for determining RETRACTION to H_STRIKE State for back loadcell and front loadcell difference
-#define FULLEXT_MIDSTANCE_LCFRONT_TH 400 // threshold for determining sufficient load for front loadcell for Full Extension to Midstance transition
-#define FULLEXT_MIDSTANCE_LCBACK_TH 400 // threshold for determining sufficient load for back loadcell for Full Extension to Midstance transition
-#define FULLEXT_MIDSTANCE_LCRIGHT_TH 400 // threshold for determining sufficient load for right loadcell for Full Extension to Midstance transition
-#define FULLEXT_MIDSTANCE_LCLEFT_TH 400 // threshold for determining sufficient load for left loadcell for Full Extension to Midstance transition
+#define SIT_STAND_TH 70 // threshold for determining SIT to STAND State (uses heel loading)
+#define GAIT_H_STRIKE_TH 110 // threshold for determining GAIT to H_STRIKE State (uses heel loading)
+#define RETRACTION_FULL_EXT_LCFRONT_TH 50 // threshold for determining RETRACTION to FULL_EXT State front loadcell load
+#define RETRACTION_FULL_EXT_LCBACK_TH 0 // threshold for determining RETRACTION to FULL_EXT State back loadcell load
+#define RETRACTION_FULL_EXT_LCLEFT_TH 20 // threshold for determining RETRACTION to FULL_EXT State left loadcell load
+#define RETRACTION_FULL_EXT_LCRIGHT_TH 20 // threshold for determining RETRACTION to FULL_EXT State right loadcell load
+#define RETRACTION_H_STRIKE_LCBACK_TH 110 // threshold for determining RETRACTION to H_STRIKE State for back loadcell load
+#define RETRACTION_H_STRIKE_LCBACKFRONT_TH 110 // threshold for determining RETRACTION to H_STRIKE State for back loadcell and front loadcell difference
+#define FULLEXT_MIDSTANCE_LCFRONT_TH 0 // threshold for determining sufficient load for front loadcell for Full Extension to Midstance transition
+#define FULLEXT_MIDSTANCE_LCBACK_TH 0 // threshold for determining sufficient load for back loadcell for Full Extension to Midstance transition
+#define FULLEXT_MIDSTANCE_LCRIGHT_TH 20 // threshold for determining sufficient load for right loadcell for Full Extension to Midstance transition
+#define FULLEXT_MIDSTANCE_LCLEFT_TH 20 // threshold for determining sufficient load for left loadcell for Full Extension to Midstance transition
 
 #define ZERO_ERROR_LC 50 // error for how close to 0 LCs are to be deemed "0" force
 #define ZERO_ERROR_ENC 1 // error for how close to 0 encoders are to be deemed "0"

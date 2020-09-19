@@ -83,7 +83,7 @@ long Read_LC1() {
   // large random spikes in lc readings -- need to filter out spikes?
 //  result = result == -1 ? lcFront : result;
 //  return abs(result - lcFront) > 300000 ? lcFront : result;
-  return loadcell1.is_ready() ? loadcell1.read()/LOADCELL_DIVIDER1 - LOADCELL_OFFSET1 : lcFront;
+  return loadcell1.is_ready() ? -1 * (loadcell1.read()/LOADCELL_DIVIDER1 - LOADCELL_OFFSET1) : lcFront;
 }
 
 /**
@@ -94,7 +94,7 @@ long Read_LC2() {
   // large random spikes in lc readings -- need to filter out spikes?
 //  result = result == -1 ? lcBack : result;
 //  return abs(result - lcBack) > 300000 ? lcBack : result;
-  return loadcell2.is_ready() ? loadcell2.read()/LOADCELL_DIVIDER2 - LOADCELL_OFFSET2 : lcBack;
+  return loadcell2.is_ready() ? -1 * (loadcell2.read()/LOADCELL_DIVIDER2 - LOADCELL_OFFSET2) : lcBack;
 }
 
 /**
@@ -105,7 +105,7 @@ long Read_LC3() {
   // large random spikes in lc readings -- need to filter out spikes?
 //  result = result == -1 ? lcLeft : result;
 //  return abs(result - lcLeft) > 300000 ? lcLeft : result;
-  return loadcell3.is_ready() ? loadcell3.read()/LOADCELL_DIVIDER3 - LOADCELL_OFFSET3 : lcLeft;
+  return loadcell3.is_ready() ? -1 * (loadcell3.read()/LOADCELL_DIVIDER3 - LOADCELL_OFFSET3) : lcLeft;
 }
 
 /**
@@ -116,5 +116,5 @@ long Read_LC4() {
   // large random spikes in lc readings -- need to filter out spikes?
 //  result = result == -1 ? lcRight : result;
 //  return abs(result - lcRight) > 300000 ? lcRight : result;
-  return loadcell4.is_ready() ? loadcell4.read()/LOADCELL_DIVIDER4 - LOADCELL_OFFSET4 : lcRight;
+  return loadcell4.is_ready() ? -1 * (loadcell4.read()/LOADCELL_DIVIDER4 - LOADCELL_OFFSET4) : lcRight;
 }
