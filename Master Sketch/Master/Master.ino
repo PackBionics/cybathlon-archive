@@ -75,15 +75,18 @@ void loop() {
   Serial.print(lcBack); Serial.print("\t");  
   Serial.print(lcLeft); Serial.print("\t");
   Serial.print(lcRight); Serial.print("\t");
-  Serial.println();
-//  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
+  Serial.print("State: "); Serial.print(curr_state); Serial.print("\t"); Serial.print(gait_curr_state); Serial.print("\t");
+//  Serial.println();
+  Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
 //  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
 //  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
 //  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
 //  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
-//  Serial.println("m/s^2 ");
+//  Serial.print("m/s^2 ");
+  Serial.println();
 
-  //  MasterFSM(curr_state);
+
+    MasterFSM(curr_state);
 
 //  rotate_helper(115, 0);
 //  if (encCAM != init_cam) {

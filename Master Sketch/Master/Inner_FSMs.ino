@@ -84,6 +84,7 @@ void Retract() {
  * Functions for GAIT FSM
  *********************************************************/
 
+// QUESTION: Should the rotate speed be changed depending on measured acceleration? -- acceleration without gravity? (the sums of the x and y vector)
 
 void Bend_Knee() {
     rotate(GAIT_BEND_KNEE_ANGLE);

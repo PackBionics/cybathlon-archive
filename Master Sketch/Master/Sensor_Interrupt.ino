@@ -31,14 +31,18 @@ void Update_I2C() {
   lcBack = Read_LC2();
   lcLeft = Read_LC3();
   lcRight = Read_LC4();
+  
   sensors_event_t event; 
   mma.getEvent(&event);
   accX = -1.0 * event.acceleration.x;
   accY = -1.0 * event.acceleration.y;
   accZ = -1.0 * event.acceleration.z;
-//  accX = getX();
-//  accY = getY();
-//  accZ = getZ();
+
+//  imu::Vector<3> grav = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
+//  accX = grav.x();
+//  accY = grav.y();
+//  accZ = grav.z();
+
   encKnee = bitToDegrees(getPositionSPI(ENC_0, RES14));
   encCAM = bitToDegrees(getPositionSPI(ENC_1, RES14));
   if (encKnee == MAX_RET_ANG) {

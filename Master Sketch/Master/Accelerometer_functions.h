@@ -9,7 +9,7 @@ Adafruit_MMA8451 mma = Adafruit_MMA8451();
 double accX;
 double accY;
 double accZ;
-double gravAcc;
+double gravAcc = 9.81;
 
 void Init_Accelerometer(void);
 double getX(void);
