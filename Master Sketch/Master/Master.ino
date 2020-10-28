@@ -85,6 +85,11 @@ void loop() {
   Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
   Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
   Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
+  Serial.print("\t Speed: ");
+  Serial.print(curr_speed[0]);
+  Serial.print("\t");
+  Serial.print(curr_speed[1]);
+  Serial.print("\t");
 //  Serial.print("m/s^2 ");
   Serial.println();
 
