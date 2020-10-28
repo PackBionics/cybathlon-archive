@@ -91,6 +91,9 @@ void rotate_helper(int angle, int index) {
         acc_const[1] = ACC_CONST_FIX;
       }
     }
+    if (((encKnee > MAX_RET_ANG || encCAM > MAX_CAM_ANG) && curr_dir[index] == MTR_BACKWARD) || ((encKnee < MAX_EXT_ANG  || encCAM < MIN_CAM_ANG) && curr_dir[index] == MTR_FORWARD)) {
+      curr_speed[index] = 0;
+    }
     curr_speed[index] = curr_speed[index] > 255 ? 255 : curr_speed[index];
 
     // write the new speed and direction to the pins
@@ -154,7 +157,7 @@ void auto_cal_enc() {
       Update_I2C();
     }
     Serial.println(encKnee);
-    rotate_helper(-2, 0);
+    rotate_helper(0, 0);
   }
   setZeroSPI(ENC_1);
   delay(1000);
@@ -167,7 +170,7 @@ void auto_cal_enc() {
 //      tic = micros()-toc;
 //      toc = micros();
     }
-    analogWrite(PWM, 30);
+    analogWrite(PWM, 100);
     digitalWrite(DIR, MTR_BACKWARD);
     if (encKnee != init_knee) {
 //      Serial.println("h6");

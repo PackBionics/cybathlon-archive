@@ -10,6 +10,7 @@
 
 long tic;
 long toc;
+int new_ang = 0;
 //int init_cam = -1000;
 
 //#define DEBUG_CONFIG // comment this line out to run full system
@@ -61,6 +62,8 @@ void setup() {
   tic = micros();
   toc = micros();
   delay(3000);
+
+//  new_ang = 0;
 }
 
 void loop() {
@@ -70,23 +73,23 @@ void loop() {
     toc = micros();
   }
   Serial.print("Time: "); Serial.print(tic); Serial.print("\t");
-//  Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
+  Serial.print("Button: "); Serial.print(button_state); Serial.print("\t"); 
   Serial.print("LC: "); Serial.print(lcFront); Serial.print("\t");
   Serial.print(lcBack); Serial.print("\t");  
   Serial.print(lcLeft); Serial.print("\t");
   Serial.print(lcRight); Serial.print("\t");
-  Serial.print("State: "); Serial.print(curr_state); Serial.print("\t"); Serial.print(gait_curr_state); Serial.print("\t");
+//  Serial.print("State: "); Serial.print(curr_state); Serial.print("\t"); Serial.print(gait_curr_state); Serial.print("\t");
 //  Serial.println();
   Serial.print("Encoder 0: "); Serial.print(encKnee); Serial.print("\t");
-//  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
-//  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
-//  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
-//  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
+  Serial.print("Encoder 1: "); Serial.print(encCAM); Serial.print("\t");
+  Serial.print("X: \t"); Serial.print(accX); Serial.print("\t");
+  Serial.print("Y: \t"); Serial.print(accY); Serial.print("\t");
+  Serial.print("Z: \t"); Serial.print(accZ); Serial.print("\t");
 //  Serial.print("m/s^2 ");
   Serial.println();
 
 
-    MasterFSM(curr_state);
+//    MasterFSM(curr_state);
 
 //  rotate_helper(115, 0);
 //  if (encCAM != init_cam) {
@@ -113,10 +116,19 @@ void loop() {
 //  Serial.print("\t");
 //  Serial.println(curr_dir[0]);
 //    int new_ang;
-//    if (encKnee >= 80) {
-//      new_ang = 10;
-//    } else if (encKnee <= 20) {
-//      new_ang = 90;
+//    if (encKnee >= 95) {
+//      new_ang = 0;
+//    } else if (encKnee <= 2) {
+//      new_ang = 100;
 //    }
-//    rotate(new_ang);
+//    rotate_helper(new_ang, 0);
+
+  if (Serial.available()) {
+    int temp = Serial.parseInt();
+    if (temp != 0) {
+      new_ang = temp;
+    }
+  }
+  rotate_helper(new_ang, 0);
+
 }
