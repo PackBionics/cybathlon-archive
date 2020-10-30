@@ -1,9 +1,9 @@
 // Thresholds for main FSM
 #define MIDSTANCE_SIT_TH 50 //70 // threshold for determining to go from MIDSTANCE to SIT State (uses heel loading)
-#define MIDSTANCE_GAIT_TOE_TH 80 //50 // threshold for determining MIDSTANCE to GAIT State (uses toe loading)
-#define MIDSTANCE_GAIT_HEEL_TH 0 // threshold for determining MIDSTANCE to GAIT State (uses zero heel loading)
+#define MIDSTANCE_GAIT_TOE_TH 800 //50 // threshold for determining MIDSTANCE to GAIT State (uses toe loading)
+#define MIDSTANCE_GAIT_HEEL_TH -350 // threshold for determining MIDSTANCE to GAIT State (uses zero heel loading)
 #define SIT_STAND_TH 70 // threshold for determining SIT to STAND State (uses heel loading)
-#define GAIT_H_STRIKE_TH 80 //110 // threshold for determining GAIT to H_STRIKE State (uses heel loading)
+#define GAIT_H_STRIKE_TH 300 //110 // threshold for determining GAIT to H_STRIKE State (uses heel loading)
 #define RETRACTION_FULL_EXT_LCFRONT_TH 40 //50 // threshold for determining RETRACTION to FULL_EXT State front loadcell load
 #define RETRACTION_FULL_EXT_LCBACK_TH 20 // threshold for determining RETRACTION to FULL_EXT State back loadcell load
 #define RETRACTION_FULL_EXT_LCLEFT_TH -6 //20 // threshold for determining RETRACTION to FULL_EXT State left loadcell load
@@ -15,7 +15,7 @@
 #define FULLEXT_MIDSTANCE_LCRIGHT_TH -7 //20 // threshold for determining sufficient load for right loadcell for Full Extension to Midstance transition
 #define FULLEXT_MIDSTANCE_LCLEFT_TH 10 //20 // threshold for determining sufficient load for left loadcell for Full Extension to Midstance transition
 
-#define ZERO_ERROR_LC 0 //50 // error for how close to 0 LCs are to be deemed "0" force
+#define ZERO_ERROR_LC 50 // error for how close to 0 LCs are to be deemed "0" force
 #define ZERO_ERROR_ENC 1 // error for how close to 0 encoders are to be deemed "0"
 
 // Thresholds for Sit, Stand, Straighten_Leg, and Retract function
@@ -38,6 +38,6 @@
 #define G_TH_Y_ACC 400 // maximum allowable component of gravity in the negative y direction (perpindicular to shin) for free swing
 
 // Thresholds for Gait FSM
-#define GAIT_HEEL_OFF_SWING_RET_TH 400 // threshold for determining going from HEEL_OFF to SWING_RET state (uses zero toe load)
-#define GAIT_SWING_EXT_END_TH 400 // threshold for determining going from SWING_EXT to END state (uses heel loading)
-#define GAIT_SWING_RET_SWING_EXT_TH 400 // threshold for x direction accelerometer measurements that determines when to transition from SWING_RET state to SWING_EXT state in gait FSM
+#define GAIT_HEEL_OFF_SWING_RET_TH 100 // threshold for determining going from HEEL_OFF to SWING_RET state (uses zero toe load)
+#define GAIT_SWING_EXT_END_TH 150 // threshold for determining going from SWING_EXT to END state (uses heel loading)
+#define GAIT_SWING_RET_SWING_EXT_TH -0.5 // threshold for x direction accelerometer measurements that determines when to transition from SWING_RET state to SWING_EXT state in gait FSM

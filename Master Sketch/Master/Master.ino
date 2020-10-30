@@ -10,7 +10,7 @@
 
 long tic;
 long toc;
-int new_ang = 0;
+//int new_ang = 110;
 //int init_cam = -1000;
 
 //#define DEBUG_CONFIG // comment this line out to run full system
@@ -90,6 +90,9 @@ void loop() {
   Serial.print("\t");
   Serial.print(curr_speed[1]);
   Serial.print("\t");
+  Serial.print(curr_state);
+  Serial.print("\t");
+  Serial.print(gait_curr_state);
 //  Serial.print("m/s^2 ");
   Serial.println();
 
@@ -120,20 +123,20 @@ void loop() {
 //  Serial.print(curr_speed[1]);
 //  Serial.print("\t");
 //  Serial.println(curr_dir[0]);
-//    int new_ang;
-//    if (encKnee >= 95) {
-//      new_ang = 0;
-//    } else if (encKnee <= 2) {
-//      new_ang = 100;
-//    }
-//    rotate_helper(new_ang, 0);
-
-  if (Serial.available()) {
-    int temp = Serial.parseInt();
-    if (temp != 0) {
-      new_ang = temp;
+    int new_ang;
+    if (encKnee >= 90) {
+      new_ang = 0;
+    } else if (encKnee <= 5) {
+      new_ang = 100;
     }
-  }
-  rotate_helper(new_ang, 0);
+    rotate_helper(new_ang, 0);
+
+//  if (Serial.available()) {
+//    int temp = Serial.parseInt();
+//    if (temp != 0) {
+//      new_ang = temp;
+//    }
+//  }
+//  rotate_helper(new_ang, 0);
 
 }

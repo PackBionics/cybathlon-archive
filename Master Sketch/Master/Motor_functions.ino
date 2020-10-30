@@ -28,6 +28,37 @@ void calcParabConsts(int index) {
     c[index] = (float) s;
 }
 
+
+void stall_check(int new_ang, int curr_ang, int index) {
+  long time_diff = 0;
+  if (prev_ang[index] == -100) {
+    prev_ang[index] = curr_ang;
+  } else if (prev_ang[index] == curr_ang) {
+    time_diff = micros() - init_time[index];
+  } else {
+    init_time[index] = micros();
+    prev_ang[index] = curr_ang;
+  }
+  if (time_diff > STALL_TIME) {
+    curr_speed[index] = curr_speed_stall[index] + (255 - curr_speed_stall[index]) / 3;
+    curr_speed_stall[index] = curr_speed[index];
+    stall_on = true;
+    if (((encKnee > MAX_RET_ANG || encCAM > MAX_CAM_ANG) && curr_dir[index] == MTR_BACKWARD) || ((encKnee < MAX_EXT_ANG  || encCAM < MIN_CAM_ANG) && curr_dir[index] == MTR_FORWARD)) {
+      curr_speed[index] = 0;
+      curr_speed_stall[index] = 0;
+      stall_on = false;
+    } else if (curr_ang == new_ang) {
+      curr_speed[index] = 0;
+      curr_speed_stall[index] = 0;
+      stall_on = false;
+    }
+    curr_speed[index] = curr_speed[index] > 255 ? 255 : curr_speed[index];
+  }
+  if (stall_on) {
+    curr_speed[index] = curr_speed[index] > curr_speed_stall[index] ? curr_speed[index] : curr_speed_stall[index];
+  }
+}
+
 /**
  * Rotates the leg to the specified angle
  * If a new angle is given, then the function will first determine whether it needs to reverse
@@ -74,19 +105,26 @@ void rotate_helper(int angle, int index) {
         dest_ang[index] = angle;
         init_ang[index] = encAngle;     // this is ONLY set here because this is where we want to "start" the movement from a 0 power or positive (same direction) power state
         curr_dir[index] = tmp_direction;
-
+        stall_on = false;
         // determine constants a, b, and c for quadratic
         calcParabConsts(index);
     }
     if (!reverse) {
       int delta_ang = abs(encAngle - init_ang[index]);
       curr_speed[index] = a[index] * delta_ang * delta_ang + b[index] * delta_ang + c[index];
+//      Serial.println(curr_speed[index]);
+      curr_dir[index] = tmp_direction;
       if (abs(encAngle - angle) > RANGE_STOP) {
         curr_speed[index] = curr_speed[index] > MIN_SSPEED ? curr_speed[index] : MIN_SSPEED; // if the speed is too low, have minimum speed kick in to keep motor moving
+        stall_check(angle, encAngle, index);
       } else if (encKnee > MAX_RET_ANG || encKnee < MAX_EXT_ANG || encCAM > MAX_CAM_ANG || encCAM < MIN_CAM_ANG) { // another check to make sure that motor doesn't go out of bounds for both encoder ranges
         curr_speed[index] = 0;
+        curr_speed_stall[index] = 0;
+        stall_on = false;
       } else {
         curr_speed[index] = 0;
+        curr_speed_stall[index] = 0;
+        stall_on = false;
         acc_const[0] = ACC_CONST; // reset acc_const once reaching final destination
         acc_const[1] = ACC_CONST_FIX;
       }

@@ -16,14 +16,17 @@ void MasterFSM(MasterFSMState init_state) {
             }
             break;
         case MIDSTANCE:
-            if (button_state == 1) {
-                current_state = LOCKED;
-            } else if (lcBack > MIDSTANCE_SIT_TH) {
-                current_state = SIT;
-            } else if (lcFront > MIDSTANCE_GAIT_TOE_TH && lcBack < MIDSTANCE_GAIT_HEEL_TH) {
+//            if (button_state == 1) {
+//                current_state = LOCKED;
+//            } else if (lcBack > MIDSTANCE_SIT_TH) {
+//                current_state = SIT;
+//            } else if (lcFront > MIDSTANCE_GAIT_TOE_TH && lcBack < MIDSTANCE_GAIT_HEEL_TH) {
+//                current_state = GAIT;
+//            } else if (lcFront < ZERO_ERROR_LC && lcBack < ZERO_ERROR_LC && lcRight < ZERO_ERROR_LC && lcLeft < ZERO_ERROR_LC) {
+//                current_state = RETRACTION;
+//            }
+            if (lcFront > MIDSTANCE_GAIT_TOE_TH && lcBack < MIDSTANCE_GAIT_HEEL_TH) {
                 current_state = GAIT;
-            } else if (lcFront < ZERO_ERROR_LC && lcBack < ZERO_ERROR_LC && lcRight < ZERO_ERROR_LC && lcLeft < ZERO_ERROR_LC) {
-                current_state = RETRACTION;
             }
             break;
         case SIT:

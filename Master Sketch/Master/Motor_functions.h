@@ -6,20 +6,21 @@
 //#define STOP_DIST   5                 // error for stopping motor
 #define MAX_MPWR      255               // max motor power = MOTOR_PWR + MIN_MPWR <= 255
 #define MIN_MPWR      0                 // initial minimum motor power
-#define RANGE_STOP    1                 // error for stopping
+#define RANGE_STOP    2                 // error for stopping
 #define RANGE_STOP_CAM    5                 // error for stopping
 #define RANGE_SLOW    20                // error for slowing down
-#define MAX_RET_ANG   80               // angle of fully retracted leg
+#define MAX_RET_ANG   115//80               // angle of fully retracted leg
 #define MAX_EXT_ANG   0                 // angle of fully extended leg
-#define MAX_CAM_ANG   66               // maximum angle for CAM for fully retracted leg
+#define MAX_CAM_ANG   140 //66               // maximum angle for CAM for fully retracted leg
 #define MIN_CAM_ANG   0                 // minimum angle for CAM for fully extended leg
 #define MTR_FORWARD   HIGH              // motor direction for forwards (extension)
 #define MTR_BACKWARD  LOW               // motor direction for backwards (retraction)
-#define MIN_SSPEED    130                // minimum starting/end speed
-#define ACC_CONST     1                 // default for acc_const [0] which is used for regular rotate
+#define MIN_SSPEED    110                // minimum starting/end speed
+#define ACC_CONST     4                 // default for acc_const [0] which is used for regular rotate
 #define ACC_CONST_FIX 1                 // default for acc_const_fix [1] which is used for rotating the CAM to its correct position
 #define RMP_DWN_CONST 0.2               // default ramp_down_const [0] which is used for regular rotate, lower means faster ramp down
 #define RMP_DWN_CONST_FIX 0.2           // default ramp_down_const [1] which is used for rotating the CAM to its correct position, lower means faster ramp down
+#define STALL_TIME    50000            // time that stall occurs before increasing speed (microseconds)
 
 int curr_speed[2] = {MIN_MPWR, MIN_MPWR};              // global variable for the current speed of the motor (pwm)
 int curr_dir[2] = {MTR_FORWARD, MTR_FORWARD};             // global variable for the current direction the motor is spinning
@@ -32,6 +33,10 @@ float c[2] = {0, 0};                    // part of quadratic used for determinin
 volatile bool updated_sensors_motor = false;  // boolean for determining whether the sensors have been updated since last call of motor function
 double acc_const[2] = {ACC_CONST, ACC_CONST_FIX}; // constant used for determining 3rd point in quadratic equation used for determining speed
 double ramp_down_const[2] = {RMP_DWN_CONST, RMP_DWN_CONST_FIX}; // constant used for determining how fast the motor ramps down when reversing from previous movement
+int prev_ang[2] = {-100, -100};
+long init_time[2] = {0, 0};
+int curr_speed_stall[2] = {MIN_MPWR, MIN_MPWR};
+bool stall_on = false;
 
 // Constant Array for converting given cam angle to the corresponding knee angle
 int enc_conversion[141] = {-2,
@@ -161,3 +166,4 @@ void Free_Swing(void);                      // Function that tries to mimic "fre
 void cableTension(void);                    // Function to keep the cables in tension
 int enc_convert(void);                      // gets the corresponding knee angle given the current CAM angle
 void auto_cal_enc(void);                    // easy method to recalibrate CAM to Knee angles
+void stall_check(int new_ang, int index);

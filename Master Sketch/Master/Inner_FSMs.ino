@@ -87,15 +87,15 @@ void Retract() {
 // QUESTION: Should the rotate speed be changed depending on measured acceleration? -- acceleration without gravity? (the sums of the x and y vector)
 
 void Bend_Knee() {
-    rotate(GAIT_BEND_KNEE_ANGLE);
+    rotate_helper(GAIT_BEND_KNEE_ANGLE, 0);
 }
 
 void Retract_Knee() {
-    rotate(GAIT_RETRACT_KNEE_ANGLE);
+    rotate_helper(GAIT_RETRACT_KNEE_ANGLE, 0);
 }
 
 void Extend_Knee() {
-    rotate(MAX_EXT_ANG);
+    rotate_helper(MAX_EXT_ANG, 0);
 }
 
 // --------------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ int GaitFSM() {
     switch(gait_curr_state) {
         case HEEL_OFF:
             Bend_Knee();
-            if (lcFront <= GAIT_HEEL_OFF_SWING_RET_TH ) {
+            if (lcFront <= GAIT_HEEL_OFF_SWING_RET_TH) {
                 gait_curr_state = SWING_RET;
             }
             return 0;
