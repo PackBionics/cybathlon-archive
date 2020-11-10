@@ -6,6 +6,8 @@
 #define RET_STATE_ANG 45
 // Angular displacement for knee for retraction during sitting
 #define SIT_ANG 90
+// Constant that divides the adjustment value for the acceleration constant
+#define ACC_CONST_ADJ_DIV 100
 
 // States in the Gait FSM
 enum GaitFSMState {HEEL_OFF, SWING_RET, SWING_EXT};

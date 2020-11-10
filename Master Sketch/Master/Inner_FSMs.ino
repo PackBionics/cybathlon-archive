@@ -3,7 +3,7 @@
  */
 void Sit() {  // TODO: change how speed is changed to be more dynamic
     double scalar = accX;
-    double scalarGs = scalar / 9.81;
+    double scalarGs = scalar / 9.81 / ACC_CONST_ADJ_DIV;
     if (scalar > SIT_X_TH_POS) { // shin pointing down
         acc_const[0] -= scalarGs;
         acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
@@ -28,7 +28,7 @@ void Sit() {  // TODO: change how speed is changed to be more dynamic
  */
 void Stand() {
     double scalar = accX;
-    double scalarGs = scalar / 9.81;
+    double scalarGs = scalar / 9.81 / ACC_CONST_ADJ_DIV;
     if (scalar > STAND_X_TH_POS) { // Shin Pointing down
         acc_const[0] += scalarGs;
         acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
@@ -53,7 +53,7 @@ void Stand() {
  */
 void Straighten_Leg() {
     double scalar = accX;
-    double scalarGs = scalar / 9.81;
+    double scalarGs = scalar / 9.81 / ACC_CONST_ADJ_DIV;
     if (scalar > STRAIGHT_X_TH_POS) {  // Shin Pointing down
         acc_const[0] += scalarGs;
         acc_const[0] = acc_const[0] > 1 ? acc_const[0] : 1;
@@ -87,15 +87,15 @@ void Retract() {
 // QUESTION: Should the rotate speed be changed depending on measured acceleration? -- acceleration without gravity? (the sums of the x and y vector)
 
 void Bend_Knee() {
-    rotate_helper(GAIT_BEND_KNEE_ANGLE, 0);
+    rotate(GAIT_BEND_KNEE_ANGLE);
 }
 
 void Retract_Knee() {
-    rotate_helper(GAIT_RETRACT_KNEE_ANGLE, 0);
+    rotate(GAIT_RETRACT_KNEE_ANGLE);
 }
 
 void Extend_Knee() {
-    rotate_helper(MAX_EXT_ANG, 0);
+    rotate(MAX_EXT_ANG);
 }
 
 // --------------------------------------------------------------------------------------------------------------

@@ -40,7 +40,7 @@ void stall_check(int new_ang, int curr_ang, int index) {
     prev_ang[index] = curr_ang;
   }
   if (time_diff > STALL_TIME) {
-    curr_speed[index] = curr_speed_stall[index] + (255 - curr_speed_stall[index]) / 3;
+    curr_speed[index] = curr_speed_stall[index] + (255 - curr_speed_stall[index]) / 10;
     curr_speed_stall[index] = curr_speed[index];
     stall_on = true;
     if (((encKnee > MAX_RET_ANG || encCAM > MAX_CAM_ANG) && curr_dir[index] == MTR_BACKWARD) || ((encKnee < MAX_EXT_ANG  || encCAM < MIN_CAM_ANG) && curr_dir[index] == MTR_FORWARD)) {
@@ -116,7 +116,7 @@ void rotate_helper(int angle, int index) {
       curr_dir[index] = tmp_direction;
       if (abs(encAngle - angle) > RANGE_STOP) {
         curr_speed[index] = curr_speed[index] > MIN_SSPEED ? curr_speed[index] : MIN_SSPEED; // if the speed is too low, have minimum speed kick in to keep motor moving
-        stall_check(angle, encAngle, index);
+//        stall_check(angle, encAngle, index);
       } else if (encKnee > MAX_RET_ANG || encKnee < MAX_EXT_ANG || encCAM > MAX_CAM_ANG || encCAM < MIN_CAM_ANG) { // another check to make sure that motor doesn't go out of bounds for both encoder ranges
         curr_speed[index] = 0;
         curr_speed_stall[index] = 0;
@@ -135,6 +135,7 @@ void rotate_helper(int angle, int index) {
     curr_speed[index] = curr_speed[index] > 255 ? 255 : curr_speed[index];
 
     // write the new speed and direction to the pins
+    Serial.print(dest_ang[index]); Serial.print("\t"); Serial.print(curr_dir[index]); Serial.print("\t"); Serial.println(curr_speed[index]);
     digitalWrite(DIR, curr_dir[index]);
     analogWrite(PWM, curr_speed[index]);
 
@@ -161,12 +162,12 @@ int enc_convert() {
  * @param angle is the desired angle to rotate to
  */
 void rotate(int angle) {
-  int required_angle = enc_convert();
-  if (abs(required_angle - encCAM) > RANGE_STOP_CAM) {  //TODO: use encCAM to compare against?
-    rotate_helper(required_angle, 1); // rotate for fixing the CAM position
-  } else {
+//  int required_angle = enc_convert();
+//  if (abs(required_angle - encCAM) > RANGE_STOP_CAM) {  //TODO: use encCAM to compare against?
+//    rotate_helper(required_angle, 1); // rotate for fixing the CAM position
+//  } else {
     rotate_helper(angle, 0);  // regular rotate
-  }
+//  }
 }
 
 
