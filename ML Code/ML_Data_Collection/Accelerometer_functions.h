@@ -2,8 +2,11 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
+#include <EEPROM.h>
 
 //sensors_event_t event;
+
+#define FULL_CALIBRATION false
 
 #define RESET_PIN 13
 #define X1_ORIENTATION -1
@@ -12,6 +15,8 @@
 #define X2_ORIENTATION 1
 #define Y2_ORIENTATION 1
 #define Z2_ORIENTATION -1
+
+#define BNO055_SAMPLERATE_DELAY_MS (100)
 
 Adafruit_BNO055 bno1 = Adafruit_BNO055();
 Adafruit_BNO055 bno2 = Adafruit_BNO055(-2, BNO055_ADDRESS_B);
@@ -59,8 +64,24 @@ double linaccX2;
 double linaccY2;
 double linaccZ2;
 
+double quatW1;
+double quatX1;
+double quatY1;
+double quatZ1;
+double quatW2;
+double quatX2;
+double quatY2;
+double quatZ2;
+
 double gravAcc = 9.81;
 bool was_fixed = true;
 
 void Init_Accelerometer(void);
 void Rst_Acc(void);
+void display_all_sensors(void);
+void display_quats(void);
+void display_eul(void);
+void displaySensorDetails(bool first);
+void displaySensorStatus(bool first);
+void displayCalStatus(bool first);
+void calibration_sequence(bool first, bool full_calib);
