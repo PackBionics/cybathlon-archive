@@ -12,6 +12,7 @@ void Init_Accelerometer() {
     while(1);
   }
 
+  delay(1000);
   calibration_sequence(true, FULL_CALIBRATION);
   delay(1000);
     
@@ -25,10 +26,22 @@ void Init_Accelerometer() {
     while(1);
   }
 
+  delay(1000);
   calibration_sequence(false, FULL_CALIBRATION);
   delay(1000);
     
 //  bno2.setExtCrystalUse(true);
+
+
+  delay(3000);
+
+  displaySensorStatus(true);
+  displaySensorStatus(false);
+
+  displayCalStatus(true);
+  Serial.println();
+  displayCalStatus(false);
+  Serial.println();
 }
 
 void Rst_Acc() {
@@ -85,6 +98,7 @@ void calibration_sequence(bool first, bool full_calib) {
         displaySensorOffsets(calibrationData);
 
         Serial.println("\n\nRestoring Calibration data to the BNO055...");
+        delay(3000);
         if (first) {
           bno1.setSensorOffsets(calibrationData);
         } else {
@@ -120,17 +134,25 @@ void calibration_sequence(bool first, bool full_calib) {
     if (foundCalib){
         Serial.println("Move sensor slightly to calibrate magnetometers");
         if (first) {
-          while (!bno1.isFullyCalibrated())
-          {
-              bno1.getEvent(&event);
-              delay(BNO055_SAMPLERATE_DELAY_MS);
-          }
+//          while (!bno1.isFullyCalibrated())
+//          {
+//              bno1.getEvent(&event);
+//              delay(BNO055_SAMPLERATE_DELAY_MS);
+//              /* Optional: Display calibration status */
+////              displayCalStatus(first);
+//              displaySensorStatus(first);
+//              Serial.println();
+//          }
         } else {
-          while (!bno2.isFullyCalibrated())
-          {
-              bno2.getEvent(&event);
-              delay(BNO055_SAMPLERATE_DELAY_MS);
-          }
+//          while (!bno2.isFullyCalibrated())
+//          {
+//              bno2.getEvent(&event);
+//              delay(BNO055_SAMPLERATE_DELAY_MS);
+//              /* Optional: Display calibration status */
+////              displayCalStatus(first);
+//              displaySensorStatus(first);
+//              Serial.println();
+//          }
         }
     }
     else
@@ -211,9 +233,11 @@ void calibration_sequence(bool first, bool full_calib) {
     eeAddress += sizeof(long);
     
     Serial.print("Address: "); Serial.println(eeAddress);
+
+    
 //    Serial.print("EEPROM New Calibration Data: "); Serial.println(newCalib);
-    EEPROM.put(eeAddress, newCalib);
-    Serial.println("Data stored to EEPROM.");
+//    EEPROM.put(eeAddress, newCalib);
+//    Serial.println("Data stored to EEPROM.");
 
     Serial.println("\n--------------------------------\n");
 }
