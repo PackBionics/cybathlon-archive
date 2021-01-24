@@ -1,12 +1,27 @@
-#include <TimerOne.h>
+//#include <TimerOne.h>
 
 /**
  * Initializes Interrupt
  */
 void Init_Interrupt() {
-  Timer1.initialize(10000);
-  Timer1.attachInterrupt(Read_Sensors, 10000);
+//  Timer1.initialize(10000);
+//  Timer1.attachInterrupt(Read_Sensors, 10000);
+  sensorTimer.begin(Read_Sensors, 10000);
 }
+
+/**
+ * NOTE:
+ * 
+ *    // to read a variable which the interrupt code writes, we
+ *    // must temporarily disable interrupts, to be sure it will
+ *    // not change while we are reading.  To minimize the time
+ *    // with interrupts off, just quickly make a copy, and then
+ *    // use the copy while allowing the interrupt to keep working.
+ *    noInterrupts();
+ *    blinkCopy = blinkCount;
+ *    interrupts();
+ * 
+ */
 
 /**
  * Function to update sensor global variables
