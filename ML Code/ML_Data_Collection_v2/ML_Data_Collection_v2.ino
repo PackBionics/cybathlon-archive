@@ -16,7 +16,7 @@ long trial_time;
 
 void setup() {
   Serial.begin(9600);
-  while(!Serial);
+  while(!Serial);  // wait until serial is pulled up
   Serial.println("Initializing Interrupt");
   Init_Interrupt();
   Serial.println("Initializing Encoder");
@@ -68,6 +68,7 @@ void loop() {
   if (tot_time <= trial_time) {
     Serial.print("Time: \t"); Serial.print(tot_time); Serial.print("\t"); Serial.print(tic); Serial.print("\t"); 
     Serial.print("\tAngle:\t"); Serial.print(encKnee); Serial.print("\t");
+//  delay(10);
     display_all_sensors();
 //    display_quats();
 //    display_eul();
