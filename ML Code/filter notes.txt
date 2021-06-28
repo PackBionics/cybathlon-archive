@@ -1,0 +1,7 @@
+Bandpass range (Hz)
+
+Angle: 0.5 - 5					Delay of 0.65
+LinAcc: Lowpass 5				Delay of 0.2
+GravX: Lowpass 5, gain of 10	Delay of 0.15
+GravY: Lowpass 3, gain of 5		Delay of 0.25
+GravZ: Lowpass 4, gain of 5		Delay of 0.2
